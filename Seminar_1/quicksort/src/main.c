@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../lib/quicksort.h"
 #include "../lib/measurement.h"
 
+#define MAX       1000000
 #define RECURSIVE 0
 #define ITERATIVE 1
 
@@ -20,7 +20,11 @@ int main(void)
 
     printf("\nEnter collection size >> ");
     scanf("%d", &collection_size);
-
+    while (collection_size > MAX){
+        printf("\nInput too big. Try a number below %d\n", MAX);
+        printf("\nEnter collection size >> ");
+        scanf("%d", &collection_size);
+    }
     printf("\n\nRunning benchmark on collection size of %d ...\n\n", collection_size);
 
     int arr[collection_size];
@@ -44,6 +48,7 @@ int main(void)
     /* Measurements for quick sort using RECURSIVE quick sort algorithm */
     measure_recursive_quicksort(arr, reference_arr, collection_size, RECURSIVE);
 
+    measure_recursive_quicksort(arr, reference_arr, collection_size, ITERATIVE);
     /* Measurements for quick sort using recursive quick sort algorithm */
     // stub
     return 0;
