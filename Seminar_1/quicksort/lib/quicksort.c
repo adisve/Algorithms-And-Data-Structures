@@ -66,7 +66,7 @@ int medianthree(int a, int b, int c) {
 double median_three_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
-    	clock_t end;
+	clock_t end;
 	/* Reset sorted list to be old version */
 	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	
@@ -76,50 +76,54 @@ double median_three_quicksort(int *arr, int *reference_arr, int collection_size,
 	double avg_sum = 0;
 
 	/* Execute for 10 cycles */
-	for (int i = 0; i < CYCLES - 1; i++)
+	for (int i = 0; i < CYCLES; i++)
 	{
 		
 		begin = clock();
 		quicksort(arr, 0, pivot, type);
 		end = clock();
+		printf("\nFinished quicksort iteration %d, with MEDIAN element as pivot\n", i+1);
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
 		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
+	printf("\n----------------------------------------------------------\n");
 	return avg_sum / CYCLES;
 }
 
 double random_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
-    	clock_t end;
+	clock_t end;
 	/* Reset sorted list to be old version */
 	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	
 	/* Random element pivot test of quick sort */
-	int pivot = rand() % (collection_size + 1 - 0) + 0;
+	int pivot = rand() % (collection_size);
 	double time_spent;
 	double avg_sum = 0;
 	
 	/* Execute for 10 cycles */
-	for (int i = 0; i < CYCLES - 1; i++)
+	for (int i = 0; i < CYCLES; i++)
 	{
 		begin = clock();
 		quicksort(arr, 0, pivot, type);
 		end = clock();
+		printf("\nFinished quicksort iteration %d, with RANDOM element as pivot\n", i+1);
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
 		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
+	printf("\n----------------------------------------------------------\n");
 	return avg_sum / CYCLES;
 }
 
 double first_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
-    	clock_t end;
+			clock_t end;
 
 	/* Reset sorted list to be old version */
 	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
@@ -130,15 +134,17 @@ double first_quicksort(int *arr, int *reference_arr, int collection_size, int ty
 	double avg_sum = 0;
 
 	/* Execute for 10 cycles */
-	for (int i = 0; i < CYCLES - 1; i++) 
+	for (int i = 0; i < CYCLES; i++) 
 	{
 		begin = clock();
 		quicksort(arr, 0, pivot, type);
 		end = clock();
+		printf("\nFinished quicksort iteration %d, with FIRST element as pivot\n", i+1);
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
 		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
+	printf("\n----------------------------------------------------------\n");
 	return avg_sum / CYCLES;
 }
