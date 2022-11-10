@@ -46,10 +46,8 @@ int main(void)
     for (int i = 0; i < collection_size; i++) reference_arr[i] = arr[i];
 
     /* Measurements for quick sort using RECURSIVE quick sort algorithm */
-    measure_recursive_quicksort(arr, reference_arr, collection_size, RECURSIVE);
-
-    measure_recursive_quicksort(arr, reference_arr, collection_size, ITERATIVE);
+    measurequicksort(arr, reference_arr, collection_size, RECURSIVE);
     /* Measurements for quick sort using recursive quick sort algorithm */
-    // stub
+    measurequicksort(arr, reference_arr, collection_size, ITERATIVE);
     return 0;
 }
