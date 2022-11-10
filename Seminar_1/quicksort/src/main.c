@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../lib/quicksort.h"
+#include "../lib/measurement.h"
 
+#define RECURSIVE 0
+#define ITERATIVE 1
 
 /* ---------------------------------------------------------
  * C program to run quicksort algorithm on input of random
@@ -10,10 +13,10 @@
  * --------------------------------------------------------- */
 int main(void)
 {
-    int collection_size;
     FILE *inputfile;
-
+    int collection_size;
     srand(time(NULL));
+    
 
     printf("\nEnter collection size >> ");
     scanf("%d", &collection_size);
@@ -30,20 +33,18 @@ int main(void)
         exit (0);
     }
 
-    /* Read numbers from file into integer array, then save array to separate array
-     * that will not be changed, and only used for resetting the sorted array */
-    for (int i = 0; i < collection_size - 1; i++) fscanf(inputfile, "%d", &arr[i]);
-    for (int i = 0; i < collection_size - 1; i++) reference_arr[i] = arr[i];
-
-    double average_first = first_quicksort(arr, reference_arr, collection_size);
-    double average_random = random_quicksort(arr, reference_arr, collection_size);
-    double average_median_three = median_three_quicksort(arr, reference_arr, collection_size);
-
-    printf("\n\nPivot element: Median of three\nExecution time for collection size of %d: %.16f\n", collection_size, average_median_three);
-    printf("\n\nPivot element: Random\nExecution time for collection size of %d: %.16f\n", collection_size, average_random);
-    printf("\n\nPivot element: First\nExecution time for collection size of %d: %.16f\n", collection_size, average_first);
-
+    /* Read numbers from file into integer array */
+    for (int i = 0; i < collection_size; i++) fscanf(inputfile, "%d", &arr[i]);
     fclose(inputfile);
+
+    /* 'Clone' array to a separate array that will not be changed, and only used
+     * for re-setting the eventually sorted array */
+    for (int i = 0; i < collection_size; i++) reference_arr[i] = arr[i];
+
+    /* Measurements for quick sort using RECURSIVE quick sort algorithm */
+    measure_recursive_quicksort(arr, reference_arr, collection_size, RECURSIVE);
+
+    /* Measurements for quick sort using recursive quick sort algorithm */
+    // stub
     return 0;
 }
-

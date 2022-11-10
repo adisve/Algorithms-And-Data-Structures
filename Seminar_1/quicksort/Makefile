@@ -4,7 +4,7 @@ LIB=lib/
 OBJ=obj/
 
 test: $(OBJ)main.o $(OBJ)quicksort.o
-	gcc -Wall -Werror -o $(BIN)main $(OBJ)main.o $(OBJ)quicksort.o
+	gcc -Wall -Werror -o $(BIN)main $(OBJ)main.o $(OBJ)quicksort.o $(OBJ)measurement.o
 
 %.o: %.c
 	gcc -c -Wall -Werror -o $@ $<
@@ -15,3 +15,4 @@ clean:
 build:
 	gcc -Wall -Werror -c -o $(OBJ)main.o $(SRC)main.c
 	gcc -Wall -Werror -c -o $(OBJ)quicksort.o $(LIB)quicksort.c
+	gcc -Wall -Werror -c -o $(OBJ)measurement.o $(LIB)measurement.c

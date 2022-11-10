@@ -4,6 +4,8 @@
 #include "quicksort.h"
 
 #define CYCLES 10
+#define RECURSIVE 0
+#define ITERATIVE 1
 
 /* Swap two elements pass by reference */
 void swap(int *x, int *y)
@@ -13,7 +15,7 @@ void swap(int *x, int *y)
 	*y = temp;
 }
 
-int partition(int arr[], int L, int H) 
+int partition(int *arr, int L, int H) 
 {
 	/* Set pivot to be rightmost element in array */
 	int pivot = arr[H];
@@ -32,15 +34,23 @@ int partition(int arr[], int L, int H)
 	return (pointer + 1);
 }
 
-void recursive_quicksort(int arr[], int L, int H) 
+void quicksort(int *arr, int L, int H, int type) 
 {
-	if (L < H) {
-		int pivot = partition(arr, L, H);
-		/* Check left of current pivot */
-		recursive_quicksort(arr, L, pivot-1);
-		/* Check right of current pivot */
-		recursive_quicksort(arr, pivot+1, H);
+	switch (type)
+	{
+		case RECURSIVE:
+			if (L < H) {
+				int pivot = partition(arr, L, H);
+				/* Check left of current pivot */
+				quicksort(arr, L, pivot-1, RECURSIVE);
+				/* Check right of current pivot */
+				quicksort(arr, pivot+1, H, RECURSIVE);
+			}
+			break;
+		case ITERATIVE:
+			break;
 	}
+	
 }
 
 /* Get median of three numbers (first, middle, last) */
@@ -53,15 +63,15 @@ int medianthree(int a, int b, int c) {
 		return c;
 }
 
-double median_three_quicksort(int *arr, int *unsorted_arr, int collection_size)
+double median_three_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
     	clock_t end;
 	/* Reset sorted list to be old version */
-	for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	
 	/* Median of three pivot test of quick sort */
-	int pivot = medianthree(0, arr[collection_size/2], collection_size);
+	int pivot = medianthree(0, arr[(collection_size )/2], collection_size);
 	double time_spent;
 	double avg_sum = 0;
 
@@ -70,25 +80,25 @@ double median_three_quicksort(int *arr, int *unsorted_arr, int collection_size)
 	{
 		
 		begin = clock();
-		recursive_quicksort(arr, 0, pivot);
+		quicksort(arr, 0, pivot, type);
 		end = clock();
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
-		for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
 	return avg_sum / CYCLES;
 }
 
-double random_quicksort(int *arr, int *unsorted_arr, int collection_size)
+double random_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
     	clock_t end;
 	/* Reset sorted list to be old version */
-	for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	
 	/* Random element pivot test of quick sort */
-	int pivot = rand() % (collection_size-1 + 1 - 0) + 0;
+	int pivot = rand() % (collection_size + 1 - 0) + 0;
 	double time_spent;
 	double avg_sum = 0;
 	
@@ -96,23 +106,23 @@ double random_quicksort(int *arr, int *unsorted_arr, int collection_size)
 	for (int i = 0; i < CYCLES - 1; i++)
 	{
 		begin = clock();
-		recursive_quicksort(arr, 0, pivot);
+		quicksort(arr, 0, pivot, type);
 		end = clock();
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
-		for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
 	return avg_sum / CYCLES;
 }
 
-double first_quicksort(int *arr, int *unsorted_arr, int collection_size)
+double first_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t begin;
     	clock_t end;
 
 	/* Reset sorted list to be old version */
-	for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 
 	/* First element pivot test of quick sort */
 	int pivot = 0;
@@ -123,12 +133,12 @@ double first_quicksort(int *arr, int *unsorted_arr, int collection_size)
 	for (int i = 0; i < CYCLES - 1; i++) 
 	{
 		begin = clock();
-		recursive_quicksort(arr, 0, pivot);
+		quicksort(arr, 0, pivot, type);
 		end = clock();
 		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 		avg_sum += time_spent;
 		/* Reset sorted list to be old version */
-		for (int i = 0; i < collection_size - 1; i++) arr[i] = unsorted_arr[i];
+		for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	}
 	return avg_sum / CYCLES;
 }
