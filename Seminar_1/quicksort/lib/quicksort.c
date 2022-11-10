@@ -54,7 +54,8 @@ void quicksort(int *arr, int L, int H, int type)
 }
 
 /* Get median of three numbers (first, middle, last) */
-int medianthree(int a, int b, int c) {
+int medianthree(int a, int b, int c)
+{
 	if ((a > b) ^ (a > c)) 
 		return a;
 	else if ((b < a) ^ (b < c)) 
@@ -70,15 +71,14 @@ double median_three_quicksort(int *arr, int *reference_arr, int collection_size,
 	/* Reset sorted list to be old version */
 	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 	
-	/* Median of three pivot test of quick sort */
-	int pivot = medianthree(0, arr[(collection_size )/2], collection_size);
+	/* Median of three pivot test of quick sort algorithm */
+	int pivot = medianthree(arr[0], arr[(collection_size-1)/2], arr[collection_size-1]);
 	double time_spent;
 	double avg_sum = 0;
 
 	/* Execute for 10 cycles */
 	for (int i = 0; i < CYCLES; i++)
 	{
-		
 		begin = clock();
 		quicksort(arr, 0, pivot, type);
 		end = clock();
@@ -128,7 +128,7 @@ double first_quicksort(int *arr, int *reference_arr, int collection_size, int ty
 	/* Reset sorted list to be old version */
 	for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
 
-	/* First element pivot test of quick sort */
+	/* First element index pivot test of quick sort */
 	int pivot = 0;
 	double time_spent;
 	double avg_sum = 0;
