@@ -10,7 +10,7 @@
 #define FIRST   1
 #define RANDOM  2
 
-void measurequicksort(int *arr, int *reference_arr, int collection_size, int type)
+void measure_quicksort(int *arr, int *reference_arr, int collection_size, int type)
 {
 	clock_t end;
         clock_t begin;
