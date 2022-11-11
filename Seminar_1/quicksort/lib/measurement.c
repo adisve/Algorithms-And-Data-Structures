@@ -56,7 +56,7 @@ void measurequicksort(int *arr, int *reference_arr, int collection_size, int typ
                         avg_sum += time_spent;
 
                         /* Reset sorted list to be old version */
-                        for (int i = 0; i < collection_size; i++) arr[i] = reference_arr[i];
+                        for (int j = 0; j < collection_size; j++) arr[j] = reference_arr[j];
                 }
                 switch (pivottypes[i]) {
                         case MEDIAN:
