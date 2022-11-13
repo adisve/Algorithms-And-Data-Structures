@@ -4,9 +4,11 @@
 
 #define MAX     1000000
 #define CYCLES  10
+
+
 /* ---------------------------------------------------------
- * C program to run insertion sort algorithm on input of random
- * numbers retrieved from random_numbers.txt
+ * C program to calculate average runtime on Insertion Sort,
+ * on an array of dynamic input size, given by the user.
  * --------------------------------------------------------- */
 int main(void)
 {

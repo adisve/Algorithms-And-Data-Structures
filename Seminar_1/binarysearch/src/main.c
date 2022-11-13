@@ -8,6 +8,10 @@ int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
 
+/* ---------------------------------------------------------
+ * C program to calculate average runtime on Binary Search,
+ * on an array of dynamic input size, given by the user.
+ * --------------------------------------------------------- */
 int main(void)
 {
         int collection_size;

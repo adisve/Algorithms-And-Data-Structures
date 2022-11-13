@@ -18,7 +18,7 @@ void swap(int *x, int *y)
 /* ---------------------------------------------------------
  * Place the pivot element at the correct position in arr,
  * placing all elements in the partition that are less than 
- * the pivot on the left, greater than pivot on the right
+ * the pivot on the left, greater than the pivot on the right
  * --------------------------------------------------------- */
 int partition(int *arr, int L, int H) 
 {
@@ -41,8 +41,8 @@ int partition(int *arr, int L, int H)
 
 /* ---------------------------------------------------------
  * Quick sort switching over recursive and iterative version,
- * depending on [type] variable. Iterative is faster simulates
- * the recursion call stack.
+ * depending on [type] variable. Iterative is faster, as it 
+ * simulates the recursion call stack.
  * --------------------------------------------------------- */
 void quicksort(int *arr, int L, int H, int type) 
 {

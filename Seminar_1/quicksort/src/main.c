@@ -8,8 +8,8 @@
 #define ITERATIVE 1
 
 /* ---------------------------------------------------------
- * C program to run quicksort algorithm on input of random
- * numbers retrieved from random_numbers.txt
+ * C program to calculate average runtime on Quick Sort,
+ * on an array of dynamic input size, given by the user.
  * --------------------------------------------------------- */
 int main(void)
 {
