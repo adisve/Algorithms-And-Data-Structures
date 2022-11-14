@@ -2,7 +2,8 @@
 #define QUICKSORT_HEADER
 
 int partition(int *arr, int L, int H);
-void quicksort(int *arr, int L, int H, int type);
+void recursive_quicksort(int *arr, int L, int H);
+void iterative_quicksort(int *arr, int L, int H);
 void swap(int *x, int *y);
 
 #endif

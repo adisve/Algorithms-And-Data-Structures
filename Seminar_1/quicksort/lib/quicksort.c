@@ -4,8 +4,7 @@
 #include "quicksort.h"
 
 #define CYCLES 10
-#define RECURSIVE 0
-#define ITERATIVE 1
+
 
 /* Swap two elements passed by reference */
 void swap(int *x, int *y)
@@ -40,45 +39,42 @@ int partition(int *arr, int L, int H)
 }
 
 /* ---------------------------------------------------------
- * Quick sort switching over recursive and iterative version,
- * depending on [type] variable. Iterative is faster, as it 
- * simulates the recursion call stack.
+ * Recursive quick sort implementation
  * --------------------------------------------------------- */
-void quicksort(int *arr, int L, int H, int type) 
+void recursive_quicksort(int *arr, int L, int H) 
 {
-	int top;
-	int stack[H - L + 1];
-	switch (type)
+	if (L < H)
 	{
-		case RECURSIVE:
-			if (L < H) {
-				int pivot = partition(arr, L, H);
-				/* Check left of current pivot */
-				quicksort(arr, L, pivot-1, RECURSIVE);
-				/* Check right of current pivot */
-				quicksort(arr, pivot+1, H, RECURSIVE);
-			}
-			break;
-		case ITERATIVE:
-			top = -1;
-			stack[++top] = L;
-			stack[++top] = H;
-		
-			while (top >= 0) {
-				H = stack[top--];
-				L = stack[top--];
-				int p = partition(arr, L, H);
-		
-				if (p - 1 > L) {
-					stack[++top] = L;
-					stack[++top] = p - 1;
-				}
-				if (p + 1 < H) {
-					stack[++top] = p + 1;
-					stack[++top] = H;
-				}
-			}
-			break;
+		int pivot = partition(arr, L, H);
+		/* Check left of current pivot */
+		recursive_quicksort(arr, L, pivot-1);
+		/* Check right of current pivot */
+		recursive_quicksort(arr, pivot+1, H);
 	}
-	
+}
+
+/* ---------------------------------------------------------
+ * Iterative quick sort implementation
+ * --------------------------------------------------------- */
+void iterative_quicksort(int *arr, int L, int H)
+{
+	int top = -1;
+	int stack[H - L + 1];
+	stack[++top] = L;
+	stack[++top] = H;
+
+	while (top >= 0) {
+		H = stack[top--];
+		L = stack[top--];
+		int p = partition(arr, L, H);
+
+		if (p - 1 > L) {
+			stack[++top] = L;
+			stack[++top] = p - 1;
+		}
+		if (p + 1 < H) {
+			stack[++top] = p + 1;
+			stack[++top] = H;
+		}
+	}
 }

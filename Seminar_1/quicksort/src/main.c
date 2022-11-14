@@ -34,20 +34,24 @@ int main(void)
     if(inputfile == NULL)
     {
         printf("Error reading file. Make sure 'random_numbers.txt' is available for benchmarking purposes ..\n");
-        exit (0);
+        return EXIT_FAILURE;
     }
+
 
     /* Read numbers from file into integer array */
     for (int i = 0; i < collection_size; i++) fscanf(inputfile, "%d", &arr[i]);
     fclose(inputfile);
-
     /* 'Clone' array to a separate array that will not be changed, and only used
      * for re-setting the eventually sorted array */
     for (int i = 0; i < collection_size; i++) reference_arr[i] = arr[i];
 
+
     /* Measurements for quick sort using RECURSIVE quick sort algorithm */
-    measure_quicksort(arr, reference_arr, collection_size, RECURSIVE);
+    measure_recursive_quicksort(arr, reference_arr, &collection_size, RECURSIVE);
+
+
     /* Measurements for quick sort using recursive quick sort algorithm */
-    measure_quicksort(arr, reference_arr, collection_size, ITERATIVE);
-    return 0;
+    measure_iterative_quicksort(arr, reference_arr, &collection_size, ITERATIVE);
+    
+    return EXIT_SUCCESS;
 }
