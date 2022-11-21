@@ -27,8 +27,8 @@ int main(void)
     }
     printf("\n\nRunning benchmark on collection size of %d ...\n\n", collection_size);
 
-    int arr[collection_size];
-    int reference_arr[collection_size];
+    int *arr = malloc(sizeof(int) * collection_size);
+    int *reference_arr = malloc(sizeof(int) * collection_size);
     inputfile = fopen("random_numbers.txt", "r");
 
     if(inputfile == NULL)
@@ -53,5 +53,7 @@ int main(void)
     /* Measurements for quick sort using recursive quick sort algorithm */
     measure_iterative_quicksort(arr, reference_arr, &collection_size, ITERATIVE);
     
+    free(arr);
+    free(reference_arr);
     return EXIT_SUCCESS;
 }

@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "math.h"
 #include "quicksort.h"
+#include "measurement.h"
 
-#define CYCLES 10
-
+#define CYCLES 20
+#define MEDIAN  0
+#define FIRST   1
+#define RANDOM  2
 
 /* Swap two elements passed by reference */
 void swap(int *x, int *y)
@@ -15,48 +19,117 @@ void swap(int *x, int *y)
 }
 
 /* ---------------------------------------------------------
- * Place the pivot element at the correct position in arr,
- * placing all elements in the partition that are less than 
- * the pivot on the left, greater than the pivot on the right
+ * Selectes the first element in the partition to be the
+ * designated pivot point
  * --------------------------------------------------------- */
-int partition(int *arr, int L, int H) 
+int partition_first(int *arr, int L, int H) 
 {
-	/* Set pivot to be arr[H] element in array */
-	int pivot = arr[H];
-	int pointer = (L - 1);
+	int pivot = arr[L];
+	int pointer = (L + 1);
 
-	/* Compare each element of partition to the pivot element */
-	for (int i = L; i < H; i++) {
-		if (arr[i] <= pivot) {
-			/* Move pointer right in array */
+	for (int j = L + 1; j <= H; j++) {
+		if (arr[j] < pivot) {
+			if (j != pointer) {
+				swap(&arr[pointer], &arr[j]);
+			}
 			pointer++;
-			swap(&arr[pointer], &arr[i]);
 		}
 	}
-	/* Swap pivot with correct placement in partition */
-	swap(&arr[pointer + 1], &arr[H]);
-	return (pointer + 1);
+
+	swap(&arr[pointer - 1], &arr[L]);
+	return (pointer - 1);
+}
+
+int partition_last(int *arr, int L, int H) {
+	int pivot = arr[H];
+	int i = (L - 1);
+
+	for (int j = L; j < H; j++) {
+		if (arr[j] < pivot) {
+			swap(&arr[++i], &arr[j]);
+		}
+	}
+
+	swap(&arr[i + 1], &arr[H]);
+	return (i + 1);
+}
+
+int partition_median(int* arr, int L, int H) {
+	/* Find index of middle element in sub section */
+	int middle = (L + H) / 2;
+
+	/* Find which element is median in current sub section */
+	int median = medianthree(arr, L, H, middle);
+
+	/* If the pivot is HIGHER than the middle element, it
+	 * must be the one on far right */
+	if (median > middle) {
+		return partition_last(arr, L, H);
+	} 
+	/* If the pivot is LOWER than the middle element, it
+	 * must be the one on far left */
+	else if (median < middle)
+	{
+		return partition_first(arr, L, H);
+	}
+	/* If the middle element is smaller than the one on
+	 * the far left, swap their positions */
+	if (arr[middle] < arr[L]) 
+		swap(&arr[middle], &arr[L]);
+	/* If the element on the far right is smaller than the
+	 * element on the far left the far left, swap their positions */
+	if (arr[H] < arr[L])
+		swap(&arr[H], &arr[L]);
+	/* If the element on the far right is smaller than the
+	 * element in the middle, swap their places */
+	if (arr[H] < arr[middle])
+		swap(&arr[H], &arr[middle]);
+	/* Swap places with the middle element and the element
+	 * on the left of the far right element in the array */
+	swap(&arr[middle], &arr[H-1]);
+	return partition_last(arr, L, H);
+}
+
+int partition_random(int *arr, int L, int H)
+{
+	int random = (rand() % (H - L + 1)) + L;
+	swap(&arr[random], &arr[H]);
+	return partition_last(arr, L, H);
 }
 
 /* ---------------------------------------------------------
  * Recursive quick sort implementation
  * --------------------------------------------------------- */
-void recursive_quicksort(int *arr, int L, int H) 
+void recursive_quicksort(int pivot_type, int *arr, int L, int H) 
 {
 	if (L < H)
 	{
-		int pivot = partition(arr, L, H);
+		int pivot;
+		switch (pivot_type) {
+			case FIRST:
+			{
+				pivot = partition_first(arr, L, H);
+			}
+			case MEDIAN:
+			{
+				pivot = partition_median(arr, L, H);
+			}
+			case RANDOM:
+			{
+				pivot = partition_random(arr, L, H);
+			}
+		}
 		/* Check left of current pivot */
-		recursive_quicksort(arr, L, pivot-1);
+		recursive_quicksort(pivot_type, arr, L, pivot-1);
 		/* Check right of current pivot */
-		recursive_quicksort(arr, pivot+1, H);
+		recursive_quicksort(pivot_type, arr, pivot+1, H);
 	}
 }
 
 /* ---------------------------------------------------------
  * Iterative quick sort implementation
  * --------------------------------------------------------- */
-void iterative_quicksort(int *arr, int L, int H)
+void iterative_quicksort(int pivot_type, int *arr, int L, int H)
 {
 	int top = -1;
 	int stack[H - L + 1];
@@ -66,14 +139,28 @@ void iterative_quicksort(int *arr, int L, int H)
 	while (top >= 0) {
 		H = stack[top--];
 		L = stack[top--];
-		int p = partition(arr, L, H);
-
-		if (p - 1 > L) {
-			stack[++top] = L;
-			stack[++top] = p - 1;
+		int pivot;
+		switch (pivot_type) {
+			case FIRST:
+			{
+				pivot = partition_first(arr, L, H);
+			}
+			case MEDIAN:
+			{
+				pivot = partition_median(arr, L, H);
+			}
+			case RANDOM:
+			{
+				pivot = partition_random(arr, L, H);
+			}
 		}
-		if (p + 1 < H) {
-			stack[++top] = p + 1;
+
+		if (pivot - 1 > L) {
+			stack[++top] = L;
+			stack[++top] = pivot - 1;
+		}
+		if (pivot + 1 < H) {
+			stack[++top] = pivot + 1;
 			stack[++top] = H;
 		}
 	}
