@@ -58,20 +58,6 @@ int partition_median(int* arr, int L, int H) {
 	/* Find index of middle element in sub section */
 	int middle = (L + H) / 2;
 
-	/* Find which element is median in current sub section */
-	int median = medianthree(arr, L, H, middle);
-
-	/* If the pivot is HIGHER than the middle element, it
-	 * must be the one on far right */
-	if (median > middle) {
-		return partition_last(arr, L, H);
-	} 
-	/* If the pivot is LOWER than the middle element, it
-	 * must be the one on far left */
-	else if (median < middle)
-	{
-		return partition_first(arr, L, H);
-	}
 	/* If the middle element is smaller than the one on
 	 * the far left, swap their positions */
 	if (arr[middle] < arr[L]) 
@@ -87,7 +73,7 @@ int partition_median(int* arr, int L, int H) {
 	/* Swap places with the middle element and the element
 	 * on the left of the far right element in the array */
 	swap(&arr[middle], &arr[H-1]);
-	return partition_last(arr, L, H);
+	return partition_first(arr, L, H);
 }
 
 int partition_random(int *arr, int L, int H)
@@ -102,27 +88,32 @@ int partition_random(int *arr, int L, int H)
  * --------------------------------------------------------- */
 void recursive_quicksort(int pivot_type, int *arr, int L, int H) 
 {
-	if (L < H)
-	{
-		int pivot;
-		switch (pivot_type) {
-			case FIRST:
-			{
-				pivot = partition_first(arr, L, H);
-			}
-			case MEDIAN:
-			{
-				pivot = partition_median(arr, L, H);
-			}
-			case RANDOM:
-			{
-				pivot = partition_random(arr, L, H);
-			}
+	if (H+1 - L < 2) return;
+	int pivot;
+	switch (pivot_type) {
+		case FIRST:
+		{
+			pivot = partition_first(arr, L, H);
 		}
-		/* Check left of current pivot */
+		case MEDIAN:
+		{
+			pivot = partition_median(arr, L, H);
+		}
+		case RANDOM:
+		{
+			pivot = partition_random(arr, L, H);
+		}
+	}
+	if (pivot - L < H - pivot)
+	{
 		recursive_quicksort(pivot_type, arr, L, pivot-1);
-		/* Check right of current pivot */
 		recursive_quicksort(pivot_type, arr, pivot+1, H);
+	} else
+	{
+	/* Check right of current pivot */
+	recursive_quicksort(pivot_type, arr, pivot+1, H);
+	/* Check left of current pivot */
+	recursive_quicksort(pivot_type, arr, L, pivot-1);
 	}
 }
 

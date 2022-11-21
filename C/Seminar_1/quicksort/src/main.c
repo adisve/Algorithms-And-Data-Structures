@@ -25,7 +25,7 @@ int main(void)
         printf("\nEnter collection size >> ");
         scanf("%d", &collection_size);
     }
-    printf("\n\nRunning benchmark on collection size of %d ...\n\n", collection_size);
+    
 
     int *arr = malloc(sizeof(int) * collection_size);
     int *reference_arr = malloc(sizeof(int) * collection_size);
@@ -41,6 +41,7 @@ int main(void)
     /* Read numbers from file into integer array */
     for (int i = 0; i < collection_size; i++) fscanf(inputfile, "%d", &arr[i]);
     fclose(inputfile);
+    printf("\n\nRunning benchmark on collection size of %d ...\n\n", collection_size);
     /* 'Clone' array to a separate array that will not be changed, and only used
      * for re-setting the eventually sorted array */
     for (int i = 0; i < collection_size; i++) reference_arr[i] = arr[i];
