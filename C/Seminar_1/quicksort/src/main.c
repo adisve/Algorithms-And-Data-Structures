@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../lib/measurement.h"
+#include "../lib/quicksort.h"
 
 #define MAX       1000000
 #define RECURSIVE 0
@@ -42,7 +43,6 @@ int main(void)
 
     /* Measurements for quick sort using RECURSIVE quick sort algorithm */
     measure_r_qsort(arr, &COLLECTION_SIZE, RECURSIVE);
-
 
     /* Measurements for quick sort using recursive quick sort algorithm */
     measure_i_qsort(arr, &COLLECTION_SIZE, ITERATIVE);

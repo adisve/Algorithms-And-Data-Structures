@@ -13,6 +13,8 @@
 #define ITERATIVE       1
 #define PIVOTS          3
 
+int array_sorted(int *arr, int n);
+
 static int PIVOT_TYPES[3] = {FIRST, RANDOM, MEDIAN};
 
 void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
@@ -79,7 +81,7 @@ void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
                         end = clock();
                         double time_spent = ((double)(end - begin) / CLOCKS_PER_SEC) * 1000;
                         avg_sum += time_spent;
-                        
+
                         /* Reset sorted list to be old version */
                         memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
                 }
@@ -105,4 +107,11 @@ void printresult(int COLLECTION_SIZE, double avg_first, double avg_median, doubl
         printf("\n\nPivot element: Median of three\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_median);
         printf("\n\nPivot element: Random\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_random);
         printf("\n\nPivot element: First\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_first);
+}
+
+int array_sorted(int *arr, int n)
+{
+        if (n == 1 || n == 0) return 1;
+        if (arr[n - 1] < arr[n - 2]) return 0;
+        return array_sorted(arr, n - 1);
 }
