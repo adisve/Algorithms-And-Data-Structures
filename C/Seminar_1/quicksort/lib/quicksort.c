@@ -28,7 +28,7 @@ int p_type(int *arr, int L, int H, int P_TYPE)
 	if (P_TYPE == FIRST) 
 	{
 		swap(&arr[H], &arr[L]);
-		return arr[H];
+		return arr[L];
 	}
 
 	else if (P_TYPE == MEDIAN) return median_pivot(arr, L, H);
@@ -57,8 +57,8 @@ int median_pivot(int* arr, int L, int H) {
 		swap(&arr[M], &arr[H]);
 	/* Swap places with the middle element and the element
 	 * on the left of the far right element in the array */
-	swap(&arr[M], &arr[H-1]);
-	return arr[H];
+	swap(&arr[M], &arr[L+1]);
+	return arr[L];
 }
 
 /* ---------------------------------------------------------
@@ -67,25 +67,26 @@ int median_pivot(int* arr, int L, int H) {
 int random_pivot(int *arr, int L, int H)
 {
 	int random = (rand() % (H - L + 1)) + L;
-	swap(&arr[random], &arr[H]);
-	return arr[H];
+	swap(&arr[random], &arr[L]);
+	return arr[L];
 }
 
 /* ---------------------------------------------------------
- * Partition function (Lomuto's)
+ * Partition function (Hoare's). Assumes the lower element
+ * is the pivot point (arr[L])
  * --------------------------------------------------------- */
 int partition(int *arr, int L, int H, int P_TYPE)
 {
-	int pivot = p_type(arr, L, H, P_TYPE);
-	int i = (L - 1);
-
-	for (int j = L; j <= H - 1; j++)
+	int x = arr[L];
+	int i = L - 1;
+	int j = H + 1;
+	for (;;)
 	{
-		if (arr[j] <= pivot) 
-			swap(&arr[++i], &arr[j]);
+		while(arr[--j] > x);
+		while(arr[++i] < x);
+		if(i < j) swap(&arr[i], &arr[j]);
+		else return j;
 	}
-	swap(&arr[i + 1], &arr[H]);
-	return (i + 1);
 }
 
 /* ---------------------------------------------------------
@@ -96,7 +97,7 @@ void r_qsort(int P_TYPE, int *arr, int L, int H)
 	if (L < H)
 	{
 		int i = partition(arr, L, H, P_TYPE);
-		r_qsort(P_TYPE, arr, L, i - 1);
+		r_qsort(P_TYPE, arr, L, i);
 		r_qsort(P_TYPE, arr, i + 1, H);
 	}
 }
