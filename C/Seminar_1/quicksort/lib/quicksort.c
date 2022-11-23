@@ -23,23 +23,18 @@ void swap(int *x, int *y)
 /* ---------------------------------------------------------
  * Dynamically return pivot based on P_TYPE parameter
  * --------------------------------------------------------- */
-int p_type(int *arr, int L, int H, int P_TYPE)
+long p_type(int *arr, int L, int H, int P_TYPE)
 {
-	if (P_TYPE == FIRST) 
-	{
-		swap(&arr[H], &arr[L]);
-		return arr[L];
-	}
-
+	if (P_TYPE == RANDOM) return random_pivot(arr, L, H);
 	else if (P_TYPE == MEDIAN) return median_pivot(arr, L, H);
-
-	return random_pivot(arr, L, H);
+	swap(&arr[H], &arr[L]);
+	return arr[L];
 }
 
 /* ---------------------------------------------------------
  * Median element partitioning.
  * --------------------------------------------------------- */
-int median_pivot(int* arr, int L, int H) {
+long median_pivot(int* arr, int L, int H) {
 	/* Find index of middle element in sub section */
 	int M = (L + H) / 2;
 
@@ -64,7 +59,7 @@ int median_pivot(int* arr, int L, int H) {
 /* ---------------------------------------------------------
  * Random element partitioning.
  * --------------------------------------------------------- */
-int random_pivot(int *arr, int L, int H)
+long random_pivot(int *arr, int L, int H)
 {
 	int random = (rand() % (H - L + 1)) + L;
 	swap(&arr[random], &arr[L]);
@@ -75,9 +70,9 @@ int random_pivot(int *arr, int L, int H)
  * Partition function (Hoare's). Assumes the lower element
  * is the pivot point (arr[L])
  * --------------------------------------------------------- */
-int partition(int *arr, int L, int H, int P_TYPE)
+long partition(int *arr, int L, int H, int P_TYPE)
 {
-	int x = arr[L];
+	int x = p_type(arr, L, H, P_TYPE);
 	int i = L - 1;
 	int j = H + 1;
 	for (;;)
@@ -90,7 +85,7 @@ int partition(int *arr, int L, int H, int P_TYPE)
 }
 
 /* ---------------------------------------------------------
- * Recursive quick sort implementation
+ * Recursive quick sort implementation.
  * --------------------------------------------------------- */
 void r_qsort(int P_TYPE, int *arr, int L, int H) 
 {
