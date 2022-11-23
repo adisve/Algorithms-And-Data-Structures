@@ -17,18 +17,18 @@ int error();
 int main(void)
 {
     FILE *inputfile;
-    int COLLECTION_SIZE;
+    long COLLECTION_SIZE;
     srand(time(NULL));
     
     printf("\nEnter collection size >> ");
-    scanf("%d", &COLLECTION_SIZE);
+    scanf("%ld", &COLLECTION_SIZE);
     while (COLLECTION_SIZE > MAX){
         printf("\nInput too big. Try a number below %d\n", MAX);
         printf("\nEnter collection size >> ");
-        scanf("%d", &COLLECTION_SIZE);
+        scanf("%ld", &COLLECTION_SIZE);
     }
     
-    int *arr = malloc(sizeof(int) * COLLECTION_SIZE);
+    long *arr = malloc(sizeof(long) * COLLECTION_SIZE);
     
     inputfile = fopen("random_numbers.txt", "r");
 
@@ -36,9 +36,9 @@ int main(void)
 
 
     /* Read numbers from file into integer array */
-    for (int i = 0; i < COLLECTION_SIZE; i++) fscanf(inputfile, "%d", &arr[i]);
+    for (int i = 0; i < COLLECTION_SIZE; i++) fscanf(inputfile, "%ld", &arr[i]);
     fclose(inputfile);
-    printf("\n\nRunning benchmark on collection size of %d ...\n\n", COLLECTION_SIZE);
+    printf("\n\nRunning benchmark on collection size of %ld ...\n\n", COLLECTION_SIZE);
 
 
     /* Measurements for quick sort using RECURSIVE quick sort algorithm */

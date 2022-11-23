@@ -13,7 +13,7 @@
 /* ---------------------------------------------------------
  * Swaps two elements in array by reference.
  * --------------------------------------------------------- */
-void swap(int *x, int *y)
+void swap(long *x, long *y)
 {
 	int temp = *x;
 	*x = *y;
@@ -23,18 +23,24 @@ void swap(int *x, int *y)
 /* ---------------------------------------------------------
  * Dynamically return pivot based on P_TYPE parameter
  * --------------------------------------------------------- */
-long p_type(int *arr, int L, int H, int P_TYPE)
+long p_type(int P_TYPE, long *arr, long L, long H)
 {
-	if (P_TYPE == RANDOM) return random_pivot(arr, L, H);
+	
+	if (P_TYPE == FIRST) 
+	{
+		swap(&arr[H], &arr[L]);
+		return arr[L];
+	}
+
 	else if (P_TYPE == MEDIAN) return median_pivot(arr, L, H);
-	swap(&arr[H], &arr[L]);
-	return arr[L];
+
+	return random_pivot(arr, L, H);
 }
 
 /* ---------------------------------------------------------
  * Median element partitioning.
  * --------------------------------------------------------- */
-long median_pivot(int* arr, int L, int H) {
+long median_pivot(long* arr, long L, long H) {
 	/* Find index of middle element in sub section */
 	int M = (L + H) / 2;
 
@@ -59,7 +65,7 @@ long median_pivot(int* arr, int L, int H) {
 /* ---------------------------------------------------------
  * Random element partitioning.
  * --------------------------------------------------------- */
-long random_pivot(int *arr, int L, int H)
+long random_pivot(long *arr, long L, long H)
 {
 	int random = (rand() % (H - L + 1)) + L;
 	swap(&arr[random], &arr[L]);
@@ -70,15 +76,15 @@ long random_pivot(int *arr, int L, int H)
  * Partition function (Hoare's). Assumes the lower element
  * is the pivot point (arr[L])
  * --------------------------------------------------------- */
-long partition(int *arr, int L, int H, int P_TYPE)
+long partition(int P_TYPE, long *arr, long L, long H)
 {
-	int x = p_type(arr, L, H, P_TYPE);
+	int pivot = p_type(P_TYPE, arr, L, H);
 	int i = L - 1;
 	int j = H + 1;
 	for (;;)
 	{
-		while(arr[--j] > x);
-		while(arr[++i] < x);
+		while(arr[--j] > pivot);
+		while(arr[++i] < pivot);
 		if(i < j) swap(&arr[i], &arr[j]);
 		else return j;
 	}
@@ -87,11 +93,11 @@ long partition(int *arr, int L, int H, int P_TYPE)
 /* ---------------------------------------------------------
  * Recursive quick sort implementation.
  * --------------------------------------------------------- */
-void r_qsort(int P_TYPE, int *arr, int L, int H) 
+void r_qsort(int P_TYPE, long *arr, long L, long H) 
 {
 	if (L < H)
 	{
-		int i = partition(arr, L, H, P_TYPE);
+		long i = partition(P_TYPE, arr, L, H);
 		r_qsort(P_TYPE, arr, L, i);
 		r_qsort(P_TYPE, arr, i + 1, H);
 	}
@@ -100,7 +106,7 @@ void r_qsort(int P_TYPE, int *arr, int L, int H)
 /* ---------------------------------------------------------
  * Iterative quick sort implementation
  * --------------------------------------------------------- */
-void i_qsort(int P_TYPE, int *arr, int L, int H)
+void i_qsort(int P_TYPE, long *arr, long L, long H)
 {
 	int top = -1;
 	int stack[H - L + 1];
@@ -110,7 +116,7 @@ void i_qsort(int P_TYPE, int *arr, int L, int H)
 	while (top >= 0) {
 		H = stack[top--];
 		L = stack[top--];
-		int p = partition(arr, L, H, P_TYPE);
+		int p = partition(P_TYPE, arr, L, H);
 		if (p - 1 > L) {
 			stack[++top] = L;
 			stack[++top] = p - 1;

@@ -13,11 +13,9 @@
 #define ITERATIVE       1
 #define PIVOTS          3
 
-int array_sorted(int *arr, int n);
-
 static int PIVOT_TYPES[3] = {FIRST, RANDOM, MEDIAN};
 
-void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
+void measure_r_qsort(long *arr, long* COLLECTION_SIZE, int type)
 {
         
 	clock_t end;
@@ -26,8 +24,8 @@ void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
         double avg_random;
         double avg_median;
         
-        int *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
-        memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(int));
+        long *reference_arr = malloc(sizeof(long) * *COLLECTION_SIZE);
+        memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(long));
 
         for (int i = 0; i < PIVOTS; i++) {
                 double avg_sum = 0;
@@ -42,7 +40,7 @@ void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
                         avg_sum += time_spent;
 
                         /* Reset sorted list to be old version */
-                        memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
+                        memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(long));
                 }
                 
                 switch (PIVOT_TYPES[i]) {
@@ -61,7 +59,7 @@ void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
         printresult(*COLLECTION_SIZE, avg_first, avg_median, avg_random, type);
 }
 
-void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
+void measure_i_qsort(long *arr, long* COLLECTION_SIZE, int type)
 {
         clock_t end;
         clock_t begin;
@@ -70,8 +68,8 @@ void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
         double avg_median;
 
         /* Copy array to keep unsorted version */
-        int *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
-        memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(int));
+        long *reference_arr = malloc(sizeof(long) * *COLLECTION_SIZE);
+        memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(long));
 
         for (int i = 0; i < PIVOTS; i++) {
                 double avg_sum = 0;
@@ -84,7 +82,7 @@ void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
                         avg_sum += time_spent;
                         
                         /* Reset sorted list to be old version */
-                        memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
+                        memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(long));
                 }
                 
                 switch (PIVOT_TYPES[i]) {
@@ -102,17 +100,10 @@ void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
         printresult(*COLLECTION_SIZE, avg_first, avg_median, avg_random, type);
 }
 
-void printresult(int COLLECTION_SIZE, double avg_first, double avg_median, double avg_random, int type)
+void printresult(long COLLECTION_SIZE, double avg_first, double avg_median, double avg_random, int type)
 {       
         printf("\n\n---- Results for %s quick sort algorithm (Median of three element pivot, Random element pivot, First element pivot) ----\n\n", type == RECURSIVE ? "RECURSIVE" : "ITERATIVE");
-        printf("\n\nPivot element: Median of three\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_median);
-        printf("\n\nPivot element: Random\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_random);
-        printf("\n\nPivot element: First\nExecution time for collection of size %d: %.16f(ms)\n", COLLECTION_SIZE, avg_first);
-}
-
-int array_sorted(int *arr, int n)
-{
-        if (n == 1 || n == 0) return 1;
-        if (arr[n - 1] < arr[n - 2]) return 0;
-        return array_sorted(arr, n - 1);
+        printf("\n\nPivot element: Median of three\nExecution time for collection of size %ld: %.16f(ms)\n", COLLECTION_SIZE, avg_median);
+        printf("\n\nPivot element: Random\nExecution time for collection of size %ld: %.16f(ms)\n", COLLECTION_SIZE, avg_random);
+        printf("\n\nPivot element: First\nExecution time for collection of size %ld: %.16f(ms)\n", COLLECTION_SIZE, avg_first);
 }
