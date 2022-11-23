@@ -37,8 +37,7 @@ void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type)
                         begin = clock();
                         r_qsort(PIVOT_TYPES[i], arr, 0, *COLLECTION_SIZE - 1);
                         end = clock();
-                        for (int k = 0; k < *COLLECTION_SIZE; k++) printf("%d ", arr[k]);
-                        printf("\n\n");
+                        
                         double time_spent = ((double)(end - begin) / CLOCKS_PER_SEC) * 1000;
                         avg_sum += time_spent;
 
@@ -83,7 +82,7 @@ void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type)
                         end = clock();
                         double time_spent = ((double)(end - begin) / CLOCKS_PER_SEC) * 1000;
                         avg_sum += time_spent;
-
+                        
                         /* Reset sorted list to be old version */
                         memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
                 }
