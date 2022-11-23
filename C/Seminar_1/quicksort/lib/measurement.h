@@ -1,9 +1,0 @@
-#ifndef MEASUREMENT_HEADER
-#define MEASUREMENT_HEADER
-
-void measure_r_qsort(int *arr, int* COLLECTION_SIZE, int type);
-void measure_i_qsort(int *arr, int* COLLECTION_SIZE, int type);
-void setpivot(int type, int *arr, int l, int h, int* pivot, int* pivot_index);
-void printresult(int COLLECTION_SIZE, double avg_first, double avg_median, double avg_random, int type);
-
-#endif
