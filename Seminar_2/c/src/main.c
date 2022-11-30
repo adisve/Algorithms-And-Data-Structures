@@ -6,11 +6,11 @@
 int main(void)
 {
 
-        char exp[100] = "{()}[[[[]]]]";
+        char exp[100] = "int b = 5; /* this is a comment / ";
 
         if (balanced(exp))
-                printf("Balanced \n");
+                printf("\nValid \n");
         else
-                printf("Not Balanced \n");
+                printf("\nNot valid \n");
         return 0;
 }

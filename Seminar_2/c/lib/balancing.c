@@ -7,52 +7,102 @@
 #define ERROR 0
 #define SUCCESS 1
 
-static char balancing_brackets[] = {
-        '[', ']',
-        '{', '}',
-        '(', ')',
-};
 
 int balanced(char *data)
 {
         /* Expression is empty, valid */
         if (data[0] == '\0') return SUCCESS;
+        int inComment = 0;
 
         struct stacknode* stack = NULL;
 
-        for (int i = 0; i < strlen(data); i++) {
-                /* If data[i] is an opening bracket, push it to the stack */
-                if (data[i] == balancing_brackets[0] || data[i] == balancing_brackets[2] || data[i] == balancing_brackets[4])
-                        push(&stack, data[i]);
-                
-                /* If data[i] is an enclosing bracket, pop and compare */
-                if (data[i] == balancing_brackets[1] || data[i] == balancing_brackets[3] || data[i] == balancing_brackets[5])
+        for (int i = 0; i < strlen(data); i++) 
+        {
+                if (data[i] == '/' && data[i+1] == '/')
                 {
-                        if (stack == NULL) return ERROR;
-                        if (!match(pop(&stack), data[i])) return ERROR;
-                }               
+                        break;
+                }
+
+                /* No brackets can be added after full line comment */
+                if ((data[i] == '*' && data[i+1] == '/') && !inComment)
+                {
+                        printf("\nInvalid syntax: Ending comment requires '/*' prior\n");
+                        return ERROR;
+                }
+
+                /* Detect opening comment */
+                if ((data[i] == '/' && data[i+1] == '*'))
+                {
+                        push(&stack, data[i]);
+                        push(&stack, data[i+1]);
+                        inComment = 1;
+                }
+
+                /* Detect closing comment */
+                if (data[i] == '*' && data[i+1] == '/')
+                {
+                        inComment = 0;
+                        if (stack == NULL)
+                        {
+                                printf("\nMissing closing comment");
+                                return ERROR;
+                        }
+                        
+                        if (!(pop(&stack) == '*' && pop(&stack) == '/'))
+                        {
+                                printf("\nMissing closing comment");
+                                return ERROR;
+                        }
+
+                }
+
+                if (!inComment)
+                {
+                        /* Detect opening brackets */
+                        if ((data[i] == '[' || data[i] == '{' || data[i] == '(') && !inComment)
+                                push(&stack, data[i]);
+                        /* Detect closing brackets */
+                        if ((data[i] == ']' || data[i] == '}' || data[i] == ')') && !inComment)
+                        {
+                                if (stack == NULL) return ERROR;
+                                if (!match(pop(&stack), data[i]))
+                                {
+                                        printf("\nSyntax error: The symbol '%c' is missing a beginning character \n", data[i]);
+                                        return ERROR;
+                                }
+                        }
+                }         
         }
         if (stack == NULL) return SUCCESS;
+
+        char bracket = pop(&stack);
+        while (bracket != -1)
+        {
+                if (bracket == '*')
+                {
+                        printf("\nSyntax error: The symbol '%c%c' is missing its closing comment '*/' \n", pop(&stack), bracket);
+                        bracket = pop(&stack);
+                        continue;
+                }
+                printf("\nSyntax error: The symbol '%c' is missing an ending character \n", bracket);
+                bracket = pop(&stack);
+        }
         return ERROR;
 }
 
 int match(char x, char y)
 {               
-        if (x == balancing_brackets[0] && y == balancing_brackets[1])
+        if (x == '[' && y == ']')
         {
-                printf("\nSuccess: Open: %c, Close: %c\n", x, y);
                 return SUCCESS;
         }
-        else if (x == balancing_brackets[2] && y == balancing_brackets[3])
+        else if (x == '{' && y == '}')
         {
-                printf("\nSuccess: Open: %c, Close: %c\n", x, y);
                 return SUCCESS;
         }
-        else if (x == balancing_brackets[4] && y == balancing_brackets[5])
+        else if (x == '(' && y == ')')
         {
-                printf("\nSuccess: Open: %c, Close: %c\n", x, y);
                 return SUCCESS;
         }     
-        printf("\nError. Enclosing characters do not match: Open: %c, Close: %c\n", x, y);
         return ERROR;
 }

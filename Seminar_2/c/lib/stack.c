@@ -23,7 +23,7 @@ int pop(struct stacknode** stack_top)
 {
         char x;
         struct stacknode* top;
-        if (*stack_top == NULL) stackoverflow_error();
+        if (*stack_top == NULL) return -1;
 
         top = *stack_top;
         x = top->val;
