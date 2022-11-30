@@ -4,7 +4,8 @@ public class CircularLinkedList<T> {
 
     Node<T> head;
     Node<T> tail;
-    public void insert(T data)
+
+    public void add(T data)
     {
         Node<T> newNode = new Node<>(data);
 
@@ -18,7 +19,7 @@ public class CircularLinkedList<T> {
         this.tail.next = this.head;
     }
 
-    public void deleteByValue(T index)
+    public void removeAt(T index)
     {
         Node<T> currNode = this.head;
 

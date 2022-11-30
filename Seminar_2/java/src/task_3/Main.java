@@ -16,6 +16,7 @@ public class Main {
 
             Scanner in = new Scanner(System.in);
             System.out.print(">> ");
+
             switch (in.nextLine()) {
                 case "1" -> {
                     System.out.print("Contact name: ");
@@ -40,6 +41,7 @@ public class Main {
                 case "4" -> addressBook.show();
                 case "5" -> loop = false;
             }
+            in.close();
         }
     }
 }
