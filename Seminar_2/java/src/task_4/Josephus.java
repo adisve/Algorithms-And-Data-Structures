@@ -23,7 +23,6 @@ public class Josephus {
             index = (index + m) % circularLinkedList.size();
             circularLinkedList.removeAt(circularLinkedList.elementAt(index).data);
         }
-        System.out.println("[CircularLinkedList] Final node: " + circularLinkedList.head.data);
     }
 
     
@@ -46,7 +45,6 @@ public class Josephus {
             iterator.next();
             iterator.remove();
         }
-        System.out.println("[LinkedList] Final node: " + linkedList.getFirst());
     }
 
     
@@ -64,7 +62,6 @@ public class Josephus {
             index = (index + m) % arrayList.size();
             arrayList.remove(index);
         }
-        System.out.println("[ArrayList] Final node: " + arrayList.get(0));
     }
 
     
@@ -87,7 +84,6 @@ public class Josephus {
             iterator.next();
             iterator.remove();
         }
-        System.out.println("[LinkedList] Final node: " + arrayList.get(0));
     }
 
 
