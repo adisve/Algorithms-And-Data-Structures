@@ -1,0 +1,1 @@
+java -cp bin task_4.Main
