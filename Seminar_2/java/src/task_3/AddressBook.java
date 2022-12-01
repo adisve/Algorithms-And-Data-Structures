@@ -1,5 +1,9 @@
 package task_3;
 
+import task_3.models.Contact;
+import task_3.models.Node;
+import task_3.structures.LinkedList;
+
 /**
  * Abstract wrapper class for using custom Linked list
  * as address book container.

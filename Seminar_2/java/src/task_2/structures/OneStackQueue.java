@@ -1,8 +1,8 @@
-package task_2;
+package task_2.structures;
 
 import java.util.Stack;
 
-class OneStackQueue<T> {
+public class OneStackQueue<T> {
 
     private Stack<T> stack = new Stack<T>();
 

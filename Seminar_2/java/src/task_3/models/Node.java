@@ -1,8 +1,8 @@
-package task_3;
+package task_3.models;
 
 public class Node<T> {
-    Node<T> next;
-    T data;
+    public Node<T> next;
+    public T data;
 
     public Node(T data)
     {

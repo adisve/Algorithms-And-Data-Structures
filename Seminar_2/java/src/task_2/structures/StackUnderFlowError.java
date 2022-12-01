@@ -1,4 +1,4 @@
-package task_2;
+package task_2.structures;
 
 public class StackUnderFlowError extends VirtualMachineError { 
         /**

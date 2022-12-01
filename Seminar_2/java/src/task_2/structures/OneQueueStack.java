@@ -1,9 +1,9 @@
-package task_2;
+package task_2.structures;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-class OneQueueStack<T> {
+public class OneQueueStack<T> {
 
     private int size;
     private int capacity;

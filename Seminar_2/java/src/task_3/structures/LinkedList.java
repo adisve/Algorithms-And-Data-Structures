@@ -1,4 +1,6 @@
-package task_3;
+package task_3.structures;
+
+import task_3.models.Node;
 
 /**
  * Custom linked list for specific use

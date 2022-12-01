@@ -2,6 +2,8 @@ package task_3;
 
 import java.util.Scanner;
 
+import task_3.models.Contact;
+
 public class Main {
     public static void main(String[] args) {
         boolean loop = true;

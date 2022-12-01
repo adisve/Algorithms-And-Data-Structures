@@ -1,5 +1,10 @@
 package task_2;
 
+import task_2.structures.OneQueueStack;
+import task_2.structures.OneStackQueue;
+import task_2.structures.TwoQueueStack;
+import task_2.structures.TwoStackQueue;
+
 public class Main {
     public static void main(String[] args) {
         testTwoStackQueue();

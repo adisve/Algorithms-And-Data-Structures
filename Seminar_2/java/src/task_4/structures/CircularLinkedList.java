@@ -1,9 +1,11 @@
-package task_4;
+package task_4.structures;
+
+import task_4.models.Node;
 
 public class CircularLinkedList<T> {
 
-    Node<T> head;
-    Node<T> tail;
+    public Node<T> head;
+    public Node<T> tail;
 
     
     /** 

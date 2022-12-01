@@ -1,9 +1,9 @@
-package task_3;
+package task_3.models;
 
-class Contact {
+public class Contact {
 
-    String name;
-    String address;
+    public String name;
+    public String address;
 
     public Contact(String name, String address)
     {
