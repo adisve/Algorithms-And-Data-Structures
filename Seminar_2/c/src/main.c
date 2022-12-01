@@ -48,20 +48,12 @@ int main(void)
 {
         for (int i = 0; i < sizeof(validtests) / sizeof(validtests[0]); i++) {
                 /* Should be valid for all */
-                runtest(validtests[i]);
+                balanced(validtests[i]);
         }
 
         for (int i = 0; i < sizeof(invalidtests) / sizeof(invalidtests[0]); i++) {
                 /* Should be invalid for all */
-                runtest(invalidtests[i]);
+                balanced(invalidtests[i]);
         }
         return 0;
-}
-
-void runtest(char *exp)
-{
-        if (balanced(exp))
-                printf("\nValid \n");
-        else
-                printf("\nNot valid \n");
 }

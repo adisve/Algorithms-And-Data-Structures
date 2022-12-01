@@ -3,19 +3,19 @@
 #include "../lib/balancing.h"
 #include "stack.h"
 
-struct stacknode;
+struct node;
 
 /**
- * @brief Implementation of stack push function on struct
+ * @brief: Implementation of stack push function on struct
  * of type stacknode.
  * 
- * @param stack_top -> address of &stack
- * @param val -> value to add
+ * @param stack_top: top node in stack
+ * @param val: value to add
  */
-void push(struct stacknode** stack_top, int val)
+void push(struct node** stack_top, int val)
 {
         /* Create new node to push to stack */
-        struct stacknode* node = (struct stacknode*)malloc(sizeof(struct stacknode));
+        struct node* node = (struct node*)malloc(sizeof(struct node));
 
         /* Check for stack overflow error */
         if (node == NULL) stackoverflow_error();
@@ -26,18 +26,17 @@ void push(struct stacknode** stack_top, int val)
 }
 
 /**
- * @brief Implementation of stack pop function on struct
+ * @brief: Implementation of stack pop function on struct
  * of type stacknode.
  * 
- * Takes address of &stack as parameter, serving as
- * the top of the stack.
+ * @param stack_top: top node in stack
  *
- * @return x -> the value of the newly added stack element.
+ * @return x: the value of the newly added stack element.
  */
-int pop(struct stacknode** stack_top)
+int pop(struct node** stack_top)
 {
         char x;
-        struct stacknode* top;
+        struct node* top;
         if (*stack_top == NULL) return -1;
 
         top = *stack_top;
@@ -47,6 +46,9 @@ int pop(struct stacknode** stack_top)
         return x;
 }
 
+/**
+ * @brief: error message on stack overflow
+ */
 void stackoverflow_error()
 {
         printf("\nStack overflow error\n");

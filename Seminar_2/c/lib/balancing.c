@@ -8,11 +8,11 @@
 #define SUCCESS 1
 
 /**
- * @brief check if character array has valid
+ * @brief: check if character array has valid
  * opening and closing character combinations
  * 
- * @param data -> character expression
- * @return int -> valid or not valid
+ * @param data: character expression
+ * @return int: valid or not valid
  */
 int balanced(char *data)
 {
@@ -20,84 +20,76 @@ int balanced(char *data)
         if (data[0] == '\0') return SUCCESS;
 
         int inComment = 0;
-        struct stacknode* stack = NULL;
+        struct node* top = NULL;
 
         for (int i = 0; i < strlen(data); i++) 
         {
-                /**
-                 * If the supplied characters are beginning of
-                 * a simple comment, no new characters can be
-                 * added to the stack since it will not be registered
-                 * by the compiler */
-                if (data[i] == '/' && data[i+1] == '/')
-                {
-                        break;
-                }
-
-                /* No brackets can be added after full line comment */
-                if ((data[i] == '*' && data[i+1] == '/') && !inComment)
-                {
-                        printf("\nInvalid syntax: Ending comment requires '/*' prior\n");
-                        return ERROR;
-                }
-
-                /* Detect multi-line comment opening characters */
-                if ((data[i] == '/' && data[i+1] == '*'))
-                {
-                        push(&stack, data[i]);
-                        push(&stack, data[i+1]);
-                        inComment = 1;
-                }
-
-                /* Detect multi-line comment closing characters */
-                if (data[i] == '*' && data[i+1] == '/')
-                {
-                        inComment = 0;
-                        if (stack == NULL)
-                        {
-                                printf("\nMissing closing comment");
-                                return ERROR;
-                        }
-                        
-                        if (!(pop(&stack) == '*' && pop(&stack) == '/'))
-                        {
-                                printf("\nMissing closing comment");
-                                return ERROR;
-                        }
-
-                }
-
                 if (!inComment)
                 {
+                        /**
+                         * If the supplied characters are beginning of
+                         * a single-line comment, no new characters can be
+                         * added to the stack since they will not be registered
+                         * by the compiler. 
+                         * */
+                        if (data[i] == '/' && data[i+1] == '/')
+                        {
+                                break;
+                        }
+
+                        /* Detect multi-line comment opening characters */
+                        if ((data[i] == '/' && data[i+1] == '*'))
+                        {
+                                push(&top, data[i]);
+                                push(&top, data[i+1]);
+                                inComment = 1;
+                        }
+
                         /* Detect opening brackets */
                         if ((data[i] == '[' || data[i] == '{' || data[i] == '(') && !inComment)
-                                push(&stack, data[i]);
+                                push(&top, data[i]);
+
                         /* Detect closing brackets */
                         if ((data[i] == ']' || data[i] == '}' || data[i] == ')') && !inComment)
                         {
-                                if (stack == NULL) return ERROR;
-                                if (!match(pop(&stack), data[i]))
+                                if (top == NULL || !match(pop(&top), data[i]))
                                 {
-                                        printf("\nSyntax error: The symbol '%c' is missing a beginning character \n", data[i]);
+                                        missingOpeningCharacterError(data[i]);
                                         return ERROR;
                                 }
                         }
-                }         
+                }      
+                else
+                {
+                        /* Detect multi-line comment closing characters */
+                        if (data[i] == '*' && data[i+1] == '/')
+                        {
+                                if (top == NULL || !(pop(&top) == '*' && pop(&top) == '/'))
+                                {
+                                        missingOpeningCommentError();
+                                        return ERROR;
+                                }
+                        }
+                }   
         }
         
-        if (stack == NULL) return SUCCESS;
+        if (top == NULL)
+        {
+                validInputSuccess();
+                return SUCCESS;
+        }
 
-        char bracket = pop(&stack);
+        char bracket = pop(&top);
         while (bracket != -1)
         {
                 if (bracket == '*')
                 {
-                        printf("\nSyntax error: The symbol '%c%c' is missing its closing comment '*/' \n", pop(&stack), bracket);
-                        bracket = pop(&stack);
+                        missingClosingCommentError();
+                        bracket = pop(&top);
                         continue;
                 }
-                printf("\nSyntax error: The symbol '%c' is missing an ending character \n", bracket);
-                bracket = pop(&stack);
+                missingClosingCharacterError(bracket);
+                bracket = pop(&top);
         }
         return ERROR;
 }
@@ -105,9 +97,9 @@ int balanced(char *data)
 /**
  * @brief match enclosing characters
  * 
- * @param x -> top item in stack
- * @param y -> closing char
- * @return int -> match or no match
+ * @param x: top item in stack
+ * @param y: closing char
+ * @return int: match or no match
  */
 int match(char x, char y)
 {               
@@ -124,4 +116,46 @@ int match(char x, char y)
                 return SUCCESS;
         }     
         return ERROR;
+}
+
+/**
+ * @brief: error message for missing closing char
+ * @param c: char perpetrator
+ */
+void missingClosingCharacterError(char c)
+{
+        printf("\n[Invalid syntax] Reason: The symbol '%c' is missing its closing character\n", c);
+}
+
+/**
+ * @brief: error message for missing opening char
+ * @param c: char perpetrator
+ */
+void missingOpeningCharacterError(char c)
+{
+        printf("\n[Invalid syntax] Reason: The symbol '%c' is missing its opening character\n", c);
+}
+
+/**
+ * @brief: error message for missing closing multi-line comment
+ */
+void missingClosingCommentError()
+{
+        printf("\n[Invalid syntax] Reason: The symbol '/*' is missing its closing comment '*/' \n");
+}
+
+/**
+ * @brief: error message for missing opening multi-line comment
+ */
+void missingOpeningCommentError()
+{
+        printf("\n[Invalid syntax] Reason: The symbol '*/' is missing its closing comment '/*' \n");
+}
+
+/**
+ * @brief: message on successful string parsing
+ */
+void validInputSuccess()
+{
+        printf("\n[Valid syntax]\n");
 }
