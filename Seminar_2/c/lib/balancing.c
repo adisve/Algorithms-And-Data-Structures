@@ -10,14 +10,18 @@
 
 int balanced(char *data)
 {
-        /* Expression is empty, valid */
+        /* If expression is empty, return valid */
         if (data[0] == '\0') return SUCCESS;
-        int inComment = 0;
 
+        int inComment = 0;
         struct stacknode* stack = NULL;
 
         for (int i = 0; i < strlen(data); i++) 
         {
+                /* If the supplied characters are beginning of
+                 * a simple comment, no new characters can be
+                 * added to the stack since it will not be registered
+                 * by the compiler */
                 if (data[i] == '/' && data[i+1] == '/')
                 {
                         break;
@@ -30,7 +34,7 @@ int balanced(char *data)
                         return ERROR;
                 }
 
-                /* Detect opening comment */
+                /* Detect multi-line comment opening characters */
                 if ((data[i] == '/' && data[i+1] == '*'))
                 {
                         push(&stack, data[i]);
@@ -38,7 +42,7 @@ int balanced(char *data)
                         inComment = 1;
                 }
 
-                /* Detect closing comment */
+                /* Detect multi-line comment closing characters */
                 if (data[i] == '*' && data[i+1] == '/')
                 {
                         inComment = 0;
@@ -73,6 +77,7 @@ int balanced(char *data)
                         }
                 }         
         }
+        
         if (stack == NULL) return SUCCESS;
 
         char bracket = pop(&stack);
