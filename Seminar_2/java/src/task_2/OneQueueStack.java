@@ -3,37 +3,69 @@ package task_2;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class OneQueueStack {
-    private int ERROR = -1;
-    private Queue<Integer> queue = new LinkedList<Integer>();
+class OneQueueStack<T> {
 
-    public void push(int i)
+    private int size;
+    private int capacity;
+    private Queue<T> queue = new LinkedList<T>();
+
+    public OneQueueStack(int capacity)
     {
-        int prevSize = queue.size();
-        queue.add(i);
+        this.capacity = capacity;
+    }
 
+    
+    /** 
+     * @param i -> Element to add
+     * @throws StackOverflowError
+     */
+    public void push(T i) throws StackOverflowError
+    {
+        if (this.size == this.capacity)
+            throw new StackOverflowError("Stack overflow error - max capacity reached for stack of size " + this.capacity);
+        
+        int prevSize = this.queue.size();
+        this.queue.add(i);
+
+        T temp;
         for (int j = 0; j < prevSize; j++)
         {
-            int temp = queue.remove();
-            queue.add(temp);
+            temp = queue.remove();
+            this.queue.add(temp);
         }
+        this.size++;
     }
 
-    public int pop()
+    
+    /** 
+     * @return T -> Element to remove
+     * @throws StackOverflowError
+     */
+    public T pop() throws StackUnderFlowError
     {
-        if (queue.isEmpty())
-        {
-            System.out.println("Stack contains no elements");
-            return ERROR;
-        }
-        int i = queue.remove();
-        return i;
+        if (this.queue.isEmpty())
+            throw new StackUnderFlowError("Stack underflow error - illegal memory location");
+        this.size--;
+        return this.queue.remove();
     }
 
-    public int top()
+    
+    /** 
+     * @return T -> Element to consume
+     */
+    public T peek()
     {
-        if (queue.isEmpty())
-            return ERROR;
-        return queue.peek();
+        if (this.queue.isEmpty())
+            return null;
+        return this.queue.peek();
+    }
+
+    
+    /** 
+     * @return int -> Size of stack
+     */
+    public int size()
+    {
+        return this.queue.size();
     }
 }

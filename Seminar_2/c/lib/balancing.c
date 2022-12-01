@@ -7,7 +7,13 @@
 #define ERROR 0
 #define SUCCESS 1
 
-
+/**
+ * @brief check if character array has valid
+ * opening and closing character combinations
+ * 
+ * @param data -> character expression
+ * @return int -> valid or not valid
+ */
 int balanced(char *data)
 {
         /* If expression is empty, return valid */
@@ -18,7 +24,8 @@ int balanced(char *data)
 
         for (int i = 0; i < strlen(data); i++) 
         {
-                /* If the supplied characters are beginning of
+                /**
+                 * If the supplied characters are beginning of
                  * a simple comment, no new characters can be
                  * added to the stack since it will not be registered
                  * by the compiler */
@@ -95,6 +102,13 @@ int balanced(char *data)
         return ERROR;
 }
 
+/**
+ * @brief match enclosing characters
+ * 
+ * @param x -> top item in stack
+ * @param y -> closing char
+ * @return int -> match or no match
+ */
 int match(char x, char y)
 {               
         if (x == '[' && y == ']')

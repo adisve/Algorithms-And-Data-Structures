@@ -12,11 +12,11 @@ public class Main {
         System.out.println();
         System.out.print("M >> ");
         int m = in.nextInt();
+        in.close();
 
         josephus.linkedList(n, m);
         josephus.linkedListIterator(n, m);
         josephus.arrayList(n, m);
         josephus.arrayListIterator(n, m);
-        in.close();
     }
 }

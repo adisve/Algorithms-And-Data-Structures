@@ -5,6 +5,11 @@ public class CircularLinkedList<T> {
     Node<T> head;
     Node<T> tail;
 
+    
+    /** 
+     * @param data -> Generic type data added
+     * to a nodes .data property
+     */
     public void add(T data)
     {
         Node<T> newNode = new Node<>(data);
@@ -19,6 +24,10 @@ public class CircularLinkedList<T> {
         this.tail.next = this.head;
     }
 
+    
+    /** 
+     * @param index -> Index to refer to in removal
+     */
     public void removeAt(T index)
     {
         Node<T> currNode = this.head;
@@ -49,6 +58,10 @@ public class CircularLinkedList<T> {
         }
     }
 
+    
+    /** 
+     * @return int -> Size of linked list
+     */
     public int size()
     {
         Node<T> currNode = head;
@@ -63,6 +76,11 @@ public class CircularLinkedList<T> {
         return size;
     }
 
+    
+    /** 
+     * @param index
+     * @return Node<T>
+     */
     public Node<T> elementAt(int index) {
         if(index > this.size()){
             return null;

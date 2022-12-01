@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         boolean loop = true;
         AddressBook addressBook = new AddressBook();
+        Scanner in = new Scanner(System.in);
         while (loop)
         {
             System.out.println("1. Add contact");
@@ -14,7 +15,7 @@ public class Main {
             System.out.println("4. Display all contacts");
             System.out.println("5. Exit");
 
-            Scanner in = new Scanner(System.in);
+            
             System.out.print(">> ");
 
             switch (in.nextLine()) {
@@ -27,21 +28,21 @@ public class Main {
                     addressBook.add(new Contact(newContactName, newContactAddress));
                 }
                 case "2" -> {
-                    System.out.print("Contact name to delete: ");
-                    String deleteContactName = in.nextLine();
+                    System.out.print("Address book index to delete: ");
+                    int deleteIndex = Integer.parseInt(in.nextLine());
                     System.out.println();
-                    addressBook.remove(deleteContactName);
+                    addressBook.removeContact(deleteIndex);
                 }
                 case "3" -> {
                     System.out.print("Contact index: ");
-                    int findIndex = in.nextInt();
+                    int findIndex = Integer.parseInt(in.nextLine());
                     System.out.println();
-                    addressBook.get(findIndex);
+                    addressBook.findContact(findIndex);
                 }
                 case "4" -> addressBook.show();
                 case "5" -> loop = false;
             }
-            in.close();
         }
+        in.close();
     }
 }

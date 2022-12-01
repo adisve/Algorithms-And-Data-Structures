@@ -5,24 +5,24 @@
 void runtest(char *exp);
 
 static char *validtests[] = {
-                /* C */
-                "int a",
-                "int a; /* random comment */",
-                "int a; /* for storing width * height */",
-                "int a = b*c;",
-                "int a = b / c;",
-                "int a = 55; // This is a comment / [ ",
-                "public void doIt(int x) {System.out.println(x*100);}",
-                "int []arr = new int[10];",
-                "/* */ {}",
+        /* C */
+        "int a",
+        "int a; /* random comment */",
+        "int a; /* for storing width * height */",
+        "int a = b*c;",
+        "int a = b / c;",
+        "int a = 55; // This is a comment / [ ",
+        "public void doIt(int x) {System.out.println(x*100);}",
+        "int []arr = new int[10];",
+        "/* */ {}",
 
-                /* C++ */
-                "if(a == b) {a++;}",
-                "if(a < (b*c)) {t = 5;}",
-                "int []b = new int[5];",
-                "[](){}",
-                "int a = 5; // init a to 5",
-        };
+        /* C++ */
+        "if(a == b) {a++;}",
+        "if(a < (b*c)) {t = 5;}",
+        "int []b = new int[5];",
+        "[](){}",
+        "int a = 5; // init a to 5",
+};
 
 static char *invalidtests[] = {
         /* C */
@@ -38,9 +38,11 @@ static char *invalidtests[] = {
 
 
 
-/*
- * C program to verify integrity of strings written in
+/**
+ * @brief C program to verify integrity of strings written in
  * the C and C++ program languages 
+ * 
+ * @return int 
  */
 int main(void)
 {
@@ -53,7 +55,6 @@ int main(void)
                 /* Should be invalid for all */
                 runtest(invalidtests[i]);
         }
-
         return 0;
 }
 

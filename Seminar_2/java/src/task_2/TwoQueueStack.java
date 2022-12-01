@@ -3,46 +3,79 @@ package task_2;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class TwoQueueStack {
+class TwoQueueStack<T> {
 
-    private int ERROR = -1;
+    private int capacity;
+    private int size;
+    private Queue<T> first = new LinkedList<T>();
+    private Queue<T> second = new LinkedList<T>();
 
-    private Queue<Integer> first = new LinkedList<Integer>();
-    private Queue<Integer> second = new LinkedList<Integer>();
-
-
-    public void push(int i)
+    public TwoQueueStack(int capacity)
     {
-        second.add(i);
-        while (!first.isEmpty())
+        this.capacity = capacity;
+    }
+
+    
+    /** 
+     * @param i -> Element to add
+     * @throws StackOverflowError
+     */
+    public void push(T i) throws StackOverflowError
+    {
+        if (this.size == this.capacity)
+            throw new StackOverflowError("Stack overflow error - max capacity reached for stack of size " + this.capacity);
+        this.second.add(i);
+        while (!this.first.isEmpty())
         {
-            second.add(first.peek());
-            first.remove();
+            this.second.add(first.peek());
+            this.first.remove();
         }
-        swap();
+        this.swap();
+        this.size++;
+            
     }
 
 
-    public void pop()
+    
+    /** 
+     * @throws StackUnderFlowError
+     */
+    public T pop() throws StackUnderFlowError
     {
-        if (first.isEmpty())
-            return;
-
-        first.remove();
+        if (this.first.isEmpty())
+            throw new StackUnderFlowError("Stack underflow error - illegal memory location"); 
+        this.size--;
+        return this.first.remove();
     }
 
-    public int top()
+    
+    /** 
+     * @return T -> Element to consume
+     */
+    public T peek()
     {
-        if (first.isEmpty())
-            return ERROR;
+        if (this.first.isEmpty())
+            return null;
 
-        return first.peek();
+        return this.first.peek();
     }
 
-    public void swap()
+    
+    /** 
+     * @return int -> Size of stack
+     */
+    public int size()
     {
-        Queue<Integer> temp = first;
-        first = second;
-        second = temp;
+        return this.first.size() + this.second.size();
+    }
+
+    /**
+     * Swaps the two available stacks
+     */
+    private void swap()
+    {
+        Queue<T> temp = this.first;
+        this.first = this.second;
+        this.second = temp;
     }
 }

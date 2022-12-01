@@ -6,6 +6,11 @@ import java.util.LinkedList;
 
 public class Josephus {
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @param m -> step value
+     */
     public void linkedList(int n, int m)
     {
         int index = 0;
@@ -19,6 +24,11 @@ public class Josephus {
         System.out.println("[CircularLinkedList] Final node: " + circularLinkedList.head.data);
     }
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @param m -> step value
+     */
     public void linkedListIterator(int n , int m)
     {
         LinkedList<Integer> linkedList = fillLinkedList(n);
@@ -37,6 +47,11 @@ public class Josephus {
         System.out.println("[LinkedList] Final node: " + linkedList.getFirst());
     }
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @param m -> step value
+     */
     public void arrayList(int n, int m)
     {
         ArrayList<Integer> arrayList = fillArrayList(n);
@@ -50,6 +65,11 @@ public class Josephus {
         System.out.println("[ArrayList] Final node: " + arrayList.get(0));
     }
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @param m -> step value
+     */
     public void arrayListIterator(int n, int m)
     {
         ArrayList<Integer> arrayList = fillArrayList(n);
@@ -70,6 +90,11 @@ public class Josephus {
 
 
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @return CircularLinkedList<Integer>
+     */
     private static CircularLinkedList<Integer> fillCircularLinkedList(int n)
     {
         CircularLinkedList<Integer> linkedList = new CircularLinkedList<Integer>();
@@ -79,6 +104,11 @@ public class Josephus {
         return linkedList;
     }
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @return LinkedList<Integer>
+     */
     private static LinkedList<Integer> fillLinkedList(int n)
     {
         LinkedList<Integer> linkedList = new LinkedList<Integer>();
@@ -88,6 +118,11 @@ public class Josephus {
         return linkedList;
     }
 
+    
+    /** 
+     * @param n -> number of nodes
+     * @return ArrayList<Integer>
+     */
     private static ArrayList<Integer> fillArrayList(int n)
     {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();

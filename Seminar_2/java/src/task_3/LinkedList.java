@@ -1,110 +1,100 @@
 package task_3;
 
-import java.util.Objects;
+/**
+ * Custom linked list for specific use
+ */
+public class LinkedList<T> {
 
-public class LinkedList {
-    private ContactNode head;
-
-    public void insert(Contact contact)
+    private Node<T> head;
+    
+    /** 
+     * @param i
+     * @return int -> Whether node was added or not
+     */
+    public int add(T i)
     {
-        ContactNode newContactNode = new ContactNode(contact);
+        Node<T> newNode = new Node<T>(i);
         if (this.head == null)
-        {
-            this.head = newContactNode;
-        }
+            this.head = newNode;
+            
         else {
-            ContactNode lastNode = this.head;
-            while (lastNode.nextNode != null)
+            Node<T> lastNode = this.head;
+            while (lastNode.next != null)
             {
-                lastNode = lastNode.nextNode;
+                lastNode = lastNode.next;
             }
-            lastNode.nextNode = newContactNode;
+            lastNode.next = newNode;
         }
+        return 1;
     }
 
-    public void remove(String contactName)
+    
+    /** 
+     * @param index
+     * @return int -> Whether node was removed or not
+     */
+    public int remove(int index)
     {
-        ContactNode currContactNode = this.head;
-        ContactNode prevContactNode = null;
+        Node<T> currNode = this.head;
+        Node<T> prevNode = null;
 
-        if (currContactNode != null && Objects.equals(currContactNode.contact.name, contactName))
+        if (currNode != null && index == 0)
         {
-            this.head = currContactNode.nextNode;
-            System.out.printf("Removed user %s", contactName);
-            System.out.println();
-        }
-        while (currContactNode != null && !Objects.equals(currContactNode.contact.name, contactName))
-        {
-            prevContactNode = currContactNode;
-            currContactNode = currContactNode.nextNode;
+            this.head = currNode.next;
+            return 1;
         }
 
-        if (currContactNode != null)
+        int counter = 1;
+        while (currNode != null && counter != index)
         {
-            assert prevContactNode != null;
-            prevContactNode.nextNode = currContactNode.nextNode;
-            System.out.printf("Removed user %s", contactName);
-            System.out.println();
+            prevNode = currNode;
+            currNode = currNode.next;
         }
-        if (currContactNode == null)
+
+        if (currNode != null)
         {
-            System.out.printf("User '%s' not found in address book", contactName);
-            System.out.println();
+            prevNode.next = currNode.next;
+            return 1;
         }
+        return 0;
     }
 
-    public ContactNode find(int index)
+    
+    /** 
+     * @param index
+     * @return Node
+     */
+    public Node<T> elementAt(int index)
     {
         if (this.head == null)
-        {
-            System.out.println("Address book is empty");
-            System.out.println();
             return null;
-        }
 
-        // Try to find contact by index
         int counter = 0;
-        ContactNode tempNode = this.head;
+        Node<T> tempNode = this.head;
         while(tempNode != null)
         {
             if (counter == index)
-            {
-                System.out.printf("Contact found at index %d", index);
-                System.out.println();
-                System.out.printf("Name: %s", tempNode.contact.name);
-                System.out.println();
-                System.out.printf("Address: %s", tempNode.contact.address);
-                System.out.println();
-                System.out.println();
-                return tempNode.nextNode;
-            }
+                return tempNode;
             counter++;
-            tempNode = tempNode.nextNode;
+            tempNode = tempNode.next;
         }
-        System.out.printf("No contact found at index %d", index);
         return null;
     }
 
-    public void display()
+    
+    /** 
+     * @return int -> Size of linked list
+     */
+    public int size()
     {
-        ContactNode tempNode = this.head;
-
-        if (tempNode == null)
+        int size = 0;
+        Node<T> tempNode = this.head;
+        
+        while (tempNode != null)
         {
-            System.out.println("Address book is empty");
-            System.out.println();
-            return;
+            size++;
+            tempNode = tempNode.next;
         }
-
-        System.out.println("Address book users:");
-        while(tempNode != null)
-        {
-            System.out.println("\n");
-            System.out.printf("Name: %s", tempNode.contact.name);
-            System.out.println();
-            System.out.printf("Address: %s", tempNode.contact.address);
-            System.out.println("\n");
-            tempNode = tempNode.nextNode;
-        }
+        return size;
     }
 }

@@ -2,11 +2,15 @@ package task_2;
 
 import java.util.Stack;
 
-class TwoStackQueue {
-    private Stack<Integer> first = new Stack<Integer>();
-    private Stack<Integer> second = new Stack<Integer>();
+class TwoStackQueue<T> {
+    private Stack<T> first = new Stack<>();
+    private Stack<T> second = new Stack<>();
 
-    public void add(int i)
+    
+    /** 
+     * @param i -> Element to add
+     */
+    public void enqueue(T i)
     {
         while (!first.isEmpty())
         {
@@ -18,15 +22,43 @@ class TwoStackQueue {
         }
     }
 
-    public int remove()
+    
+    /** 
+     * @return T -> Element to remove
+     */
+    public T dequeue()
     {
-        if (first.isEmpty())
+        if (first.isEmpty() && second.isEmpty())
         {
             System.out.println("Queue contains no elements");
             System.exit(0);
         }
-        int i = first.peek();
-        first.pop();
-        return i;
+        else if (second.isEmpty() && !first.isEmpty())
+        {
+            Stack<T> temp = first;
+            first = second;
+            second = temp;
+        }
+        return second.pop();
+    }
+
+    
+    /** 
+     * @return T -> Element to consume
+     */
+    public T peek()
+    {
+        if (first.isEmpty())
+            return null;
+        return first.lastElement();
+    }
+
+    
+    /** 
+     * @return int -> Size of stack
+     */
+    public int size()
+    {
+        return first.size() + second.size();
     }
 }

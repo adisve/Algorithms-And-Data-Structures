@@ -5,13 +5,12 @@
 
 struct stacknode;
 
-/* 
- * Implementation of stack push function on struct
+/**
+ * @brief Implementation of stack push function on struct
  * of type stacknode.
  * 
- * Takes address of &stack as parameter, serving as
- * the top of the stack, along with an integer
- * value to add.
+ * @param stack_top -> address of &stack
+ * @param val -> value to add
  */
 void push(struct stacknode** stack_top, int val)
 {
@@ -26,14 +25,14 @@ void push(struct stacknode** stack_top, int val)
         *stack_top = node;
 }
 
-/* 
- * Implementation of stack pop function on struct
+/**
+ * @brief Implementation of stack pop function on struct
  * of type stacknode.
  * 
  * Takes address of &stack as parameter, serving as
  * the top of the stack.
  *
- * Returns the value of the newly added stack element.
+ * @return x -> the value of the newly added stack element.
  */
 int pop(struct stacknode** stack_top)
 {
