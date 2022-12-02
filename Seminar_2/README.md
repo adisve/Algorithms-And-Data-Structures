@@ -4,6 +4,8 @@
 
 <br>
 
+## Usage
+
 *All commands are run from Seminar_2/*
 
 <br>
