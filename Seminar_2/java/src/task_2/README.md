@@ -1,6 +1,6 @@
 ## Task 2
 
-The efficiency of data structures depends greatly on the use cases and the algorithms they are implemented with. For this task, a queue consisting of a single task is extremely efficient in case it is an enqueue operation, as we are simply pushing an item to the stack. The dequeue method is linear in nature, as it is being called recursively before reaching the base case.
+The efficiency of data structures depends greatly on the use cases and the algorithms they are implemented with. For this task, a queue consisting of a single stack is extremely efficient in case it is an enqueue operation, as we are simply pushing an item to the stack. The dequeue method is linear in nature, as it is being called recursively before reaching the base case.
 
 Comparing this to the queue with two stacks, we can see that the dequeue operation for this implementation would be faster as it does not include recursion and only makes calls to constant time operations such as pop() and isEmpty().
 
