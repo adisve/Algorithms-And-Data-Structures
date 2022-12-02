@@ -53,7 +53,7 @@ public class OneQueueStack<T> {
     /** 
      * @return T -> Element to consume
      */
-    public T peek()
+    public T top()
     {
         if (this.queue.isEmpty())
             return null;

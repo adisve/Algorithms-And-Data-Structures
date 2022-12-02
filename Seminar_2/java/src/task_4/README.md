@@ -1,0 +1,3 @@
+## Task 4
+
+As for any case, the most efficient data structure depends on the use-case. A linked list allows insertions and removals in constant time, whereas the arraylist has an O(n) time complexity for both cases. The time required to retrieve or find an item in a linked list depends on the size, as access is sequential and not indexed, in comparison to the arraylist, giving us an average time complexity of O(n). So in conclusion, if the use case is inserting or removing items, then a linked list is more suitable. But if we only need to find items we store, then a data structure that is based on indexing is more suitable, such as the arraylist data structure. 

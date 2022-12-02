@@ -52,7 +52,7 @@ public class TwoQueueStack<T> {
     /** 
      * @return T -> Element to consume
      */
-    public T peek()
+    public T top()
     {
         if (this.first.isEmpty())
             return null;

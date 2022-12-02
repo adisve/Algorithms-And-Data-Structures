@@ -7,9 +7,8 @@ public class Test {
         private Josephus josephus = new Josephus();        
         private Random rand = new Random();
         
-        public void josephusLinkedList()
+        public void runJosephusAutomatedLinkedList()
         {
-
                 long avg_sum = 0;
                 for (int i = 10; i < 100000;)
                 {
@@ -26,7 +25,7 @@ public class Test {
                 }
         }
 
-        public void josephusLinkedListIterator()
+        public void runJosephusAutomatedLinkedListIterator()
         {
                 long avg_sum = 0;
                 for (int i = 10; i < 100000;)
@@ -44,7 +43,7 @@ public class Test {
                 }
         }
 
-        public void josephusArrayList()
+        public void runJosephusAutomatedArrayList()
         {
                 long avg_sum = 0;
                 for (int i = 10; i < 100000;)
@@ -62,7 +61,7 @@ public class Test {
                 }
         }
 
-        public void josephusArrayListIterator()
+        public void runJosephusAutomatedArrayListIterator()
         {
                 long avg_sum = 0;
                 for (int i = 10; i < 100000;)
@@ -78,5 +77,40 @@ public class Test {
                         i *= 10;
                         avg_sum = 0;
                 }
+        }
+
+        public void runCustomJosephusInput(int n, int m)
+        {
+                int time;
+                long start;
+                long end;
+
+                time = 0;
+                start = System.nanoTime();
+                josephus.linkedList(n, m);
+                end = System.nanoTime();
+                time += (end - start);
+                System.out.println("Time to solve Josephus for [Linked List] implementation, with an input size of "+ n + ": " + time + "(ns)");
+                
+                time = 0;
+                start = System.nanoTime();
+                josephus.linkedListIterator(n, m);
+                end = System.nanoTime();
+                time += (end - start);
+                System.out.println("Time to solve Josephus for [Linked List Iterator] implementation, with an input size of "+ n + ": " + time + "(ns)");
+
+                time = 0;
+                start = System.nanoTime();
+                josephus.arrayList(n, m);
+                end = System.nanoTime();
+                time += (end - start);
+                System.out.println("Time to solve Josephus for [Array List] implementation, with an input size of "+ n + ": " + time + "(ns)");
+
+                time = 0;
+                start = System.nanoTime();
+                josephus.arrayListIterator(n, m);
+                end = System.nanoTime();
+                time += (end - start);
+                System.out.println("Time to solve Josephus for [Array List Iterator] implementation, with an input size of "+ n + ": " + time + "(ns)");
         }
 }
