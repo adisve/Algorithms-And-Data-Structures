@@ -3,7 +3,6 @@ package task_4;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 import task_4.structures.CircularLinkedList;
 
 public class Josephus {
