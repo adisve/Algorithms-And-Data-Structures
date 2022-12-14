@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "task_one.h"
-#include "heap.h"
-#include "measurement.h"
+#include "../lib/task_one.h"
+#include "../lib/heap.h"
+#include "../lib/measurement.h"
 
 #define MAX 100000
 

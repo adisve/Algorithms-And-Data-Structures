@@ -14,6 +14,6 @@ clean:
 
 build:
 	gcc -Wall -Werror -c -g -o $(OBJ)main.o $(SRC)main.c
-	gcc -Wall -Werror -c -g -o $(OBJ)heap.o $(LIB)heap.c
-	gcc -Wall -Werror -c -g -o $(OBJ)task_one.o $(LIB)task_one.c
-	gcc -Wall -Werror -c -g -o $(OBJ)measurement.o $(LIB)measurement.c
+	gcc -Wall -Werror -c -g -o $(OBJ)heap.o $(SRC)heap.c
+	gcc -Wall -Werror -c -g -o $(OBJ)task_one.o $(SRC)task_one.c
+	gcc -Wall -Werror -c -g -o $(OBJ)measurement.o $(SRC)measurement.c

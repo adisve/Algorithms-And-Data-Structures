@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "heap.h"
-#include "measurement.h"
+#include "../lib/heap.h"
+#include "../lib/measurement.h"
 
 #define CYCLES 10
 
