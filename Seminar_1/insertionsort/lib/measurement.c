@@ -9,7 +9,6 @@
 
 void measure_insertionsort(long *arr, long *COLLECTION_SIZE)
 {
-
         clock_t end;
         clock_t begin;
 	double time_spent;

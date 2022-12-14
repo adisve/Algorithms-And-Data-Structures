@@ -173,7 +173,7 @@ void insert(minheap heap, key_type key)
  */
 void levelorder(minheap heap)
 {
-	for (int i = 1; i < heap->size; i++)
+	for (int i = 1; i < heap->size+1; i++)
                 printf("%d ", heap->arr[i]);
 }
 

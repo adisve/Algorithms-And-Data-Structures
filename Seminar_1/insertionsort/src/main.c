@@ -37,6 +37,6 @@ int main(void)
         /* Read numbers from file into integer array */
         for (int i = 0; i < COLLECTION_SIZE; i++) fscanf(inputfile, "%ld", &arr[i]);
         fclose(inputfile);
-
+        
         measure_insertionsort(arr, &COLLECTION_SIZE);
 }

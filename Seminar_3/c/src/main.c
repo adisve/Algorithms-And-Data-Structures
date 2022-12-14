@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include "../lib/heap.h"
-#include "../lib/test.h"
+#include "../lib/task_one.h"
 
 int main(void)
 {
@@ -18,6 +18,7 @@ int main(void)
         a(heap_one);
         b(heap_two);
         c(heap_one, heap_two, 1);
+        d();
 
         destroy(heap_one);
         destroy(heap_two);
