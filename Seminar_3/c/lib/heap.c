@@ -166,6 +166,11 @@ void insert(minheap heap, key_type key)
 	percolateup(heap, heap->size);
 }
 
+/**
+ * @brief: Traverse tree in level order
+ * 
+ * @param heap 
+ */
 void levelorder(minheap heap)
 {
 	for (int i = 1; i < heap->size; i++)
@@ -184,7 +189,7 @@ void preorder(minheap heap, int i)
 	if (i > 0 && i < heap->size)
 	{
 		/* Parent node */
-		printf(" %d\n", heap->arr[i]);
+		printf("%d ", heap->arr[i]);
 
 		/* Left nodes */
 		preorder(heap, 2*i);
@@ -211,7 +216,7 @@ void postorder(minheap heap, int i)
 		postorder(heap, 2*i + 1);
 
 		/* Parent node */
-		printf(" %d\n", heap->arr[i]);
+		printf("%d ", heap->arr[i]);
 	}
 }
 
