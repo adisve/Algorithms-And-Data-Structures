@@ -1,38 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "../lib/heap.h"
-
-void printheap(minheap heap);
 
 int main(void)
 {
         srand(time(NULL));
         int arr[15] = {10, 12, 1, 14, 6, 5, 8, 15, 3, 9, 7, 4, 11, 13, 2};
-        minheap heap_insert = create(arr);
+        minheap heap_insert = create();
         
-        /* Build heap by inserting items one by one */
-        for (int i = 0; i < (sizeof(arr)/sizeof(arr[0])); i++)
-        {
-                printf("Inserting number %d\n", arr[i]);
+        /* ---- Task 1 ---- */
+        printf("Task 1.\n");
+        
+        for (int i = 0; i < 15; i++)
                 insert(heap_insert, arr[i]);
-        }
-        printheap(heap_insert);
+        printf("\ta) -> After insertions:  ");
+        levelorder(heap_insert);
+                
 
-        /* Build heap by giving array of items */
-        minheap heap_heapified = buildheap(arr, sizeof(arr)/sizeof(arr[0]));
-        printheap(heap_heapified);
-
-        return EXIT_SUCCESS;
-}
-
-void printheap(minheap heap)
-{
-        while (!isempty(heap))
-        {
-                printf("%4d", findmin(heap));
-                deletemin(heap);
-        }
         printf("\n");
-        destroy(heap);
+        /* Build heap by giving array of items */
+        minheap heap_heapified = heapify(arr, 15);
+        printf("\tb) -> After heapification:  ");
+        levelorder(heap_heapified);
+
+        printf("\n");
+        /* ---- Task 2 ---- */
+        printf("\tc) \n");
+        printf("\t   -> Preorder traversal array 1:  \n");
+        preorder(heap_insert, 1);
+
+        printf("\t   -> Preorder traversal array 2:  \n");
+        preorder(heap_heapified, 1);
+
+        destroy(heap_insert);
+        destroy(heap_heapified);
+        return EXIT_SUCCESS;
 }

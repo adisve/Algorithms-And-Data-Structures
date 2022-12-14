@@ -3,12 +3,6 @@
 #include <assert.h>
 #include "heap.h"
 
-struct minheap {
-	key_type* arr;
-	int max_size;
-	int size;
-};
-
 /**
  * @brief: Construct empty minheap
  * 
@@ -16,11 +10,13 @@ struct minheap {
  */
 minheap create()
 {
-	minheap heap = (minheap) malloc(sizeof(struct minheap));
+	minheap heap = (minheap) malloc(sizeof(struct _minheap));
 	if (heap == NULL) abort();
-		heap->max_size = 64;
-		heap->size = 0;
-		heap->arr = (key_type*) malloc(sizeof(key_type)*(heap->max_size+1));
+
+	heap->max_size = 64;
+	heap->size = 0;
+	heap->arr = (key_type*) malloc(sizeof(key_type)*(heap->max_size+1));
+	
 	if (heap->arr == NULL) abort();
 	
 	return heap;
@@ -33,11 +29,11 @@ minheap create()
  * @param n
  * @return minheap 
  */
-minheap buildheap(const key_type* arr, int n)
+minheap heapify(const key_type* arr, int n)
 {
 	assert(arr && n > 0);
 
-	minheap heap = (minheap) malloc(sizeof(struct minheap));
+	minheap heap = (minheap) malloc(sizeof(struct _minheap));
 	if (heap == NULL) abort();
 
 	heap->max_size = n;
@@ -84,16 +80,16 @@ void percolateup(minheap heap, int k)
 {
 	assert(heap && k >= 1 && k <= heap->size);
 
-	for(heap->arr[0] = k; k < heap->arr[k / 2]; k /= 2)
+	/* for(heap->arr[0] = k; k < heap->arr[k / 2]; k /= 2)
 		swap(heap, k/2, k);
-	heap->arr[k] = k;
+	heap->arr[k] = k; */
 	
 	/* Can also be written like this for clarity */
-	/* while (k > 1 && heap->array[k] < heap->array[k / 2])
+	while (k > 1 && heap->arr[k] < heap->arr[k / 2])
 	{
 		swap(heap, k / 2, k);
 		k /= 2;
-	} */
+	}
 }
 
 /**
@@ -110,7 +106,7 @@ void percolateup(minheap heap, int k)
 void percolatedown(minheap heap, int k)
 {
 	assert(heap);
-	int child;
+	/* int child;
 	key_type tmp = heap->arr[k];
 	for (; k * 2 <= heap->size; k = child)
 	{
@@ -122,18 +118,18 @@ void percolatedown(minheap heap, int k)
 		else
 			break;
 	}
-	heap->arr[k] = tmp;
+	heap->arr[k] = tmp; */
 
 	// Should be written with more brevity like so:
-	/* while (2 * k <= heap->size)
+	while (2 * k <= heap->size)
 	{
 		int j = 2 * k;
-		if (j < heap->size && heap->array[j+1] < heap->array[j]) j++;
-		if (heap->array[k] <= heap->array[j]) break;
+		if (j < heap->size && heap->arr[j+1] < heap->arr[j]) j++;
+		if (heap->arr[k] <= heap->arr[j]) break;
 
 		swap(heap, k, j);
 		k = j;
-	} */
+	}
 }
 
 /**
@@ -168,6 +164,77 @@ void insert(minheap heap, key_type key)
 	heap->arr[++heap->size] = key;
 	// Percolate up
 	percolateup(heap, heap->size);
+}
+
+void levelorder(minheap heap)
+{
+	for (int i = 1; i < heap->size; i++)
+                printf("%d ", heap->arr[i]);
+}
+
+/**
+ * @brief: Traverse tree in pre-order
+ * @note   
+ * @param  heap: 
+ * @param  i: 
+ * @retval None
+ */
+void preorder(minheap heap, int i)
+{
+	if (i > 0 && i < heap->size)
+	{
+		/* Parent node */
+		printf(" %d\n", heap->arr[i]);
+
+		/* Left nodes */
+		preorder(heap, 2*i);
+
+		/* Right nodes */
+		preorder(heap, 2*i + 1);
+	}
+}
+/**
+ * @brief: Traverse tree in post-order
+ * @note   
+ * @param  heap: 
+ * @param  i: 
+ * @retval None
+ */
+void postorder(minheap heap, int i)
+{
+	if (i > 0 && i < heap->size)
+	{
+		/* Left nodes */
+		postorder(heap, 2*i);
+
+		/* Right nodes */
+		postorder(heap, 2*i + 1);
+
+		/* Parent node */
+		printf(" %d\n", heap->arr[i]);
+	}
+}
+
+/**
+ * @brief: Traverse tree in order
+ * @note   
+ * @param  heap: 
+ * @param  i: 
+ * @retval None
+ */
+void inorder(minheap heap, int i)
+{
+	if (i > 0 && i < heap->size)
+	{
+		/* Left nodes */
+		inorder(heap, 2*i);
+
+		/* Parent node */
+		printf("%d ", heap->arr[i]);
+
+		/* Right nodes */
+		inorder(heap, 2*i + 1);
+	}
 }
 
 /**

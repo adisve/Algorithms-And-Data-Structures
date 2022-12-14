@@ -2,10 +2,16 @@
 #define HEAP_HEADER
 
 typedef int key_type;
-typedef struct minheap* minheap;
+typedef struct _minheap* minheap;
+
+struct _minheap {
+	key_type* arr;
+	int max_size;
+	int size;
+};
 
 minheap create();
-minheap buildheap(const key_type* array, int n);
+minheap heapify(const key_type* array, int n);
 
 void destroy(minheap);
 int findmin(minheap);
@@ -20,5 +26,10 @@ void swap(minheap heap, int i, int j);
 void enlarge(minheap heap);
 void percolatedown(minheap heap, int k);
 void percolateup(minheap heap, int k);
+
+void preorder(minheap heap, int i);
+void postorder(minheap heap, int i);
+void inorder(minheap heap, int i);
+void levelorder(minheap);
 
 #endif
