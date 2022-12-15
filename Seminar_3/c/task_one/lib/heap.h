@@ -5,13 +5,13 @@ typedef int key_type;
 typedef struct _minheap* minheap;
 
 struct _minheap {
-	key_type* arr;
+	key_type *arr;
 	int max_size;
 	int size;
 };
 
 minheap create();
-minheap heapify(const key_type* array, int n);
+minheap heapify(const key_type *arr, int n);
 
 void destroy(minheap);
 int findmin(minheap);
