@@ -2,9 +2,10 @@ package task_three;
 
 public class HashTable<K, V> implements HashMap<K, V>
 {
-        int capacity;
-        int entries;
-
+        private int capacity;
+        private int size;
+        private HashItem[] entries;
+        
         public HashTable()
         {
 
@@ -32,6 +33,15 @@ public class HashTable<K, V> implements HashMap<K, V>
         @Override
         public void remove(K key) {
                 // TODO Auto-generated method stub
+                
+        }
+
+        @Override
+        public void clear() {
+                this.size = 0;
+                for(int i = 0; i < entries.length; i++) {
+                        entries[i] = null;
+                }
                 
         }
         

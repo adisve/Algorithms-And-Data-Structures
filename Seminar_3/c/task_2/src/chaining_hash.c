@@ -6,9 +6,9 @@
 #define hashcode_first(x) x % 10
 #define hashcode_second(x) 7 - x //h2(x) = 7 − (x mod 7)
 
-hashtable_chain * create_chain(void)
+chained_hashtable * create_chain(void)
 {
-        hashtable_chain *table = (hashtable_chain*) (malloc(sizeof(struct _hashtable_chain)));
+        chained_hashtable *table = (chained_hashtable*) (malloc(sizeof(struct _chained_hashtable)));
         if (table == NULL)
         {
                 fprintf(stderr, "Could not create hash table");
@@ -26,7 +26,7 @@ hashtable_chain * create_chain(void)
         
 }
 
-node* get_chain(hashtable_chain *table, int key)
+node* get_chain(chained_hashtable *table, int key)
 {
         int i = 1;
         int index = (hashcode_second(hashcode_first(key) + i)) % table->capacity;
@@ -42,7 +42,7 @@ node* get_chain(hashtable_chain *table, int key)
         return NULL;  
 }
 
-node* set_chain(hashtable_chain *table, const int key, const int value)
+node* set_chain(chained_hashtable *table, const int key, const int value)
 {
         node *n = (node*) malloc(sizeof(struct _node));
         node *p;
@@ -69,7 +69,7 @@ node* set_chain(hashtable_chain *table, const int key, const int value)
 }
 
 
-void destroy_chain(hashtable_chain *table)
+void destroy_chain(chained_hashtable *table)
 {
         free(table->elements);
         free(table);

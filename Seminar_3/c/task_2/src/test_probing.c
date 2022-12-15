@@ -10,7 +10,7 @@
 void b(int *input)
 {
         printf("\n\nb) [Hash table with linear probing] ");
-        hashtable_probing *table = create_probing();
+        probing_hashtable *table = create_probing();
         for (int i = 0; i < SIZE; i++)
                 set_probing(table, input[i], input[i], LINEAR);
         for (int i = 0; i < table->capacity; i++)
@@ -21,7 +21,7 @@ void b(int *input)
 void c(int *input)
 {
         printf("\n\nc) [Hash table with quadratic probing] ");
-        hashtable_probing *table = create_probing();
+        probing_hashtable *table = create_probing();
         for (int i = 0; i < SIZE; i++)
                 set_probing(table, input[i], input[i], QUADRATIC);
         for (int i = 0; i < table->capacity; i++)

@@ -5,4 +5,5 @@ public interface HashMap<K, V> {
         public V get(K key);
         public Boolean has(K key);
         public void remove(K key);
+        public void clear();
 }

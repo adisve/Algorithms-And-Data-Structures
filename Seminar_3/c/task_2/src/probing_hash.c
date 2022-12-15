@@ -8,9 +8,9 @@
 #define LINEAR 0
 #define QUADRATIC 1
 
-hashtable_probing* create_probing(void)
+probing_hashtable* create_probing(void)
 {
-        hashtable_probing *table = (hashtable_probing*) (malloc(sizeof(struct _hashtable_probing)));
+        probing_hashtable *table = (probing_hashtable*) (malloc(sizeof(struct _probing_hashtable)));
         if (table == NULL)
         {
                 fprintf(stderr, "Could not create hash table");
@@ -38,7 +38,7 @@ hashtable_probing* create_probing(void)
 
 
 
-void destroy_probing(hashtable_probing *table)
+void destroy_probing(probing_hashtable *table)
 {
         free(table->elements);
         free(table);
@@ -46,7 +46,7 @@ void destroy_probing(hashtable_probing *table)
 
 
 
-int get_probing(hashtable_probing *table, int key)
+int get_probing(probing_hashtable *table, int key)
 {
         int i = 1;
         int index = (hashcode_second(hashcode_first(key) + i)) % table->capacity;
@@ -60,7 +60,7 @@ int get_probing(hashtable_probing *table, int key)
         return -1;        
 }
 
-int set_probing(hashtable_probing *table, int key, int value, const int type)
+int set_probing(probing_hashtable *table, int key, int value, const int type)
 {
         if (value == -1) return -1;
         if (table->size >= table->capacity / 2) {
@@ -124,7 +124,7 @@ int linear_entry(hashentry *elements, const int capacity, const int key, const i
         return key;
 }
 
-int enlarge(hashtable_probing *table, int type)
+int enlarge(probing_hashtable *table, int type)
 {
         int new = table->capacity * 2;
         /* Integer overflow */

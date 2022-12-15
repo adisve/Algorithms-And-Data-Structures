@@ -8,7 +8,7 @@
 void a(int *input)
 {
         printf("\n\na) [Hash table with chaining] ");
-        hashtable_chain *table = create_chain();
+        chained_hashtable *table = create_chain();
 
         for (int i = 0; i < SIZE; i++)
                 set_chain(table, input[i], input[i]);
