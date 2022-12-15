@@ -64,7 +64,7 @@ int set_probing(hashtable_probing *table, int key, int value, const int type)
 {
         if (value == -1) return -1;
         if (table->size >= table->capacity / 2) {
-                if (!enlarge_probing(table, type)) {
+                if (!enlarge(table, type)) {
                         return -1;
                 }
         }
@@ -124,7 +124,7 @@ int linear_entry(hashentry *elements, const int capacity, const int key, const i
         return key;
 }
 
-int enlarge_probing(hashtable_probing *table, int type)
+int enlarge(hashtable_probing *table, int type)
 {
         int new = table->capacity * 2;
         /* Integer overflow */

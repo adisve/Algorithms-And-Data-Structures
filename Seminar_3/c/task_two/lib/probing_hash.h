@@ -28,6 +28,6 @@ int set_probing(hashtable_probing *table, const int key, const int value, const 
 
 int linear_entry(hashentry *elements, const int capacity, const int key, const int value, int *table_len);
 int quadratic_entry(hashentry *elements, const int capacity, const int key, const int value, int *table_len);
-int enlarge_probing(hashtable_probing *table, int type);
+int enlarge(hashtable_probing *table, int type);
 
 #endif
