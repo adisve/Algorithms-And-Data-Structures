@@ -1,0 +1,1 @@
+javac --source-path src -d bin src/task_3/*.java
