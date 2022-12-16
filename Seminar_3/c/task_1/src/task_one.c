@@ -71,9 +71,11 @@ void d()
 
 
         printf("\n\n---- Results for algorithm one ----\n\n");
-        for (int i = 10; i <= MAX; i *= 10)
+        for (int i = MAX; i > 0; i /= 10)
         {
+                printf("\nGoing in to allocate ..");
                 subset = malloc((i)*sizeof(int));
+                
                 for(int j = i; j < i; j++)
                         subset[j] = arr[j];
                 SUBSET_SIZE = i;
@@ -81,7 +83,7 @@ void d()
         }
 
         printf("\n\n---- Results for algorithm two ----\n\n");
-        for (int i = 10; i <= MAX; i *= 10)
+        for (int i = MAX; i > 0; i /= 10)
         {
                 subset = malloc((i)*sizeof(int));
                 for(int j = i; j < i; j++)

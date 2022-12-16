@@ -22,6 +22,7 @@ void measure_algorithm_one(int *arr, int *COLLECTION_SIZE)
         {
                 begin = clock();
                 /* Create and fill heap */
+                
                 minheap heap_one = create();
                 for (int i = 0; i < 15; i++)
                         insert(heap_one, arr[i]);
