@@ -24,7 +24,7 @@ public class Puzzle {
      * word.) Although this may seem to increase the size of the hash table drastically, it does 
      * not, because many words have the same prefixes. When a scan is performed in a 
      * particular direction, if the word that is looked up is not even in the hash table as a prefix, 
-     * then the scan in that direction can be terminated early.
+     * then the scan in that direction can be terminated early."
      * 
      */
     public void solve()
