@@ -51,7 +51,7 @@ public class HashTable<K, V> implements IHashTable<K, V>
         }
     
         @Override
-        public void set(K key, V val)
+        public V set(K key, V val)
         {
 		if (val == null) remove(key);
 
@@ -67,11 +67,12 @@ public class HashTable<K, V> implements IHashTable<K, V>
 			if (this.entries.get(hash).key.equals(key))
 			{ 
 				this.entries.set(hash, new HashEntry<K, V>(this.entries.get(hash).key, this.entries.get(hash).value)); 
-				return; 
+				return val; 
 			}
 		}
 		this.entries.set(hash, new HashEntry<K, V>(key, val));
 		this.size++;
+                return val;
         }
         
         @Override
@@ -85,10 +86,10 @@ public class HashTable<K, V> implements IHashTable<K, V>
         }
     
         @Override
-        public void remove(K key)
+        public boolean remove(K key)
         {
 		/* Go back if key is not present */
-		if (!containsKey(key)) return;
+		if (!containsKey(key)) return false;
 		
 		/* Loop table until correct hash entry is found */
 		int i = hashcode(key), j = 0;
@@ -112,7 +113,8 @@ public class HashTable<K, V> implements IHashTable<K, V>
                         j++;
 			i = (i + j * j) % capacity;
 		}
-		this.size--;        
+		this.size--;
+                return true;     
         }
 
         /**

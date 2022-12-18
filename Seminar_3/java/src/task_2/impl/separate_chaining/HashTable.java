@@ -22,7 +22,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
         }
 
         @Override
-        public void set(K key, V value)
+        public V set(K key, V value)
         {
                 /* Generate index from hash */
                 int headIndex = hashcode(key) % this.capacity;
@@ -39,7 +39,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         if (n.key.equals(key) && n.hash == hash)
                         {
                                 n.value = value;
-                                return;
+                                return value;
                         }
                         n = n.next;
                 }
@@ -51,6 +51,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
 
                 /* Ensure load factor is not exceeded (o.5f) */
                 this.ensureLoadFactor();
+                return value;
         }
 
         @Override
@@ -73,7 +74,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
         }
 
         @Override
-        public void remove(K key)
+        public boolean remove(K key)
         {
                 /* Generate index from hash */
                 int headIndex = this.hashcode(key) % this.capacity;
@@ -91,7 +92,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         n = n.next;
                 }
                 if (n == null)
-                        return;
+                        return false;
                 this.size -= 1;
                 if (previousN != null)
                         previousN.next = n.next;
@@ -99,6 +100,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         this.entries.set(headIndex, n.next);
                 if (this.size > 0 && this.size <= this.capacity/8)
                         this.rehash(this.capacity/2);
+                return true;
         }
 
         @Override

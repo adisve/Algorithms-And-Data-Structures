@@ -1,13 +1,17 @@
 package task_2;
 
-import task_2.impl.linear_probing.HashTable;
+import task_2.test.LinearProbing;
+import task_2.test.QuadraticProbing;
+import task_2.test.SeparateChaining;
 
 public class Main {
         public static void main(String[] args) {
-                HashTable<Integer, Integer> hashTable = new HashTable<Integer, Integer>(8);
-                int[] inputs = {4371, 1323, 6173, 4199, 4344, 9679, 1989};
-                for (int i = 0; i < inputs.length; i++)
-                        hashTable.set(inputs[i], inputs[i]);
-                System.out.println(hashTable.get(4371));
+                LinearProbing linearProbing = new LinearProbing();
+                QuadraticProbing quadraticProbing = new QuadraticProbing();
+                SeparateChaining separateChaining = new SeparateChaining();
+
+                System.out.println("Linear probing test: " + (linearProbing.test() ? "Passed" : "Failed"));
+                System.out.println("Quadratic probing test: " + (quadraticProbing.test() ? "Passed" : "Failed"));
+                System.out.println("Linear probing test: " + (separateChaining.test() ? "Passed" : "Failed"));
         }
 }
