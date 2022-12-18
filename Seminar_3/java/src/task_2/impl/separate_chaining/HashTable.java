@@ -3,7 +3,7 @@ package task_2.impl.separate_chaining;
 import java.util.ArrayList;
 
 import task_2.interfaces.IHashTable;
-import task_2.models.Node;
+import task_2.models.HashNode;
 
 /**
  * Separate chaining hash table
@@ -12,7 +12,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
 
         private final int DEFAULT_CAPACITY = 8;
         private final float DEFAULT_LOAD_FACTOR = 0.5f;
-        private ArrayList<Node<K, V>> entries = new ArrayList<Node<K, V>>(DEFAULT_CAPACITY);
+        private ArrayList<HashNode<K, V>> entries = new ArrayList<HashNode<K, V>>(DEFAULT_CAPACITY);
         private int size = 0;
         private int capacity = DEFAULT_CAPACITY;
 
@@ -30,7 +30,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         headIndex *= -1;
                 /* Unique hash */
                 int hash = hashcode(key);
-                Node<K, V> n = this.entries.get(headIndex);
+                HashNode<K, V> n = this.entries.get(headIndex);
                 while (n != null)
                 {
                         /** if the key is the same and also the hashcode,
@@ -46,7 +46,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                 this.size += 1;
                 /* Get original index from key again */
                 n = this.entries.get(headIndex);
-                Node<K, V> insertionNode = new Node<K, V>(key, value, hash, n);
+                HashNode<K, V> insertionNode = new HashNode<K, V>(key, value, hash, n);
                 this.entries.set(headIndex, insertionNode);
 
                 /* Ensure load factor is not exceeded (o.5f) */
@@ -62,7 +62,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         headIndex *= -1;
                 /* Unique hash */
                 int hash = hashcode(key);
-                Node<K, V> n = this.entries.get(headIndex);
+                HashNode<K, V> n = this.entries.get(headIndex);
                 while (n != null)
                 {
                         if (n.key.equals(key) && n.hash == hash)
@@ -81,8 +81,8 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                         headIndex *= -1;
                 /* Unique hash */
                 int hash = this.hashcode(key);
-                Node<K, V> n = this.entries.get(headIndex);
-                Node<K, V> previousN = null;
+                HashNode<K, V> n = this.entries.get(headIndex);
+                HashNode<K, V> previousN = null;
                 while (n != null)
                 {
                         if (n.key.equals(key) && n.hash == hash)
@@ -105,11 +105,11 @@ public class HashTable<K, V> implements IHashTable<K, V> {
         public void rehash(int capacity)
         {
                 /* Rehash if exceed load factor */
-                ArrayList<Node<K, V>> oldEntries = this.entries;
+                ArrayList<HashNode<K, V>> oldEntries = this.entries;
                 this.capacity = capacity;
-                this.entries = new ArrayList<Node<K, V>>(this.capacity);
+                this.entries = new ArrayList<HashNode<K, V>>(this.capacity);
                 this.clear();
-                for (Node<K, V> node : oldEntries) {
+                for (HashNode<K, V> node : oldEntries) {
                         while(node != null)
                         {
                                 this.set(node.key, node.value);

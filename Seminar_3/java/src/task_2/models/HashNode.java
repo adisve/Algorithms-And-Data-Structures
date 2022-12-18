@@ -1,12 +1,12 @@
 package task_2.models;
 
-public class Node<K, V> {
+public class HashNode<K, V> {
         public K key;
         public V value;
         public int hash;
-        public Node<K, V> next;
+        public HashNode<K, V> next;
 
-        public Node(K key, V value, int hash, Node<K, V> next)
+        public HashNode(K key, V value, int hash, HashNode<K, V> next)
         {
                 this.key = key;
                 this.value = value;
