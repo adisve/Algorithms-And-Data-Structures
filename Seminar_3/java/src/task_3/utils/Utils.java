@@ -53,7 +53,7 @@ public class Utils {
 		List<String> lines = new ArrayList<String>();
 		List<String> letters = new ArrayList<String>();
 		try {
-			Scanner scanner = new Scanner(new File("Seminar_3/java/src/task_3/random_letters.txt"));
+			Scanner scanner = new Scanner(new File("Seminar_3/java/resources/random_letters.txt"));
 			while (scanner.hasNextLine()) {
 				lines.add(scanner.nextLine());
 			}
@@ -81,7 +81,7 @@ public class Utils {
 		List<String> validWords = new ArrayList<String>();
 		try
 		{
-			Scanner scanner = new Scanner(new File("Seminar_3/java/src/task_3/random_words.txt"));
+			Scanner scanner = new Scanner(new File("Seminar_3/java/resources/random_words.txt"));
 			while (scanner.hasNextLine())
 			{
 				String word = scanner.nextLine();
