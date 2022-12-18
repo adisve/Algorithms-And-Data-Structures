@@ -9,6 +9,7 @@ public class Puzzle {
     private HashMap<String, String> prefixes = new HashMap<>();
     private List<String> validWords;
     private String[][] puzzle;
+    private int realWordsFound = 0;
 
     public Puzzle(String[][] puzzle, List<String> validWords)
     {
@@ -29,6 +30,7 @@ public class Puzzle {
      */
     public void solve()
     {
+        realWordsFound = 0;
         this.prefixes = Utils.fill(prefixes, validWords);
         for (int i = 0; i < this.puzzle.length; i++) {
             for (int j = 0; j < this.puzzle[i].length; j++) {
@@ -37,6 +39,7 @@ public class Puzzle {
                     traverse(startCell, this.puzzle[i][j], neighbour);
             }
         }
+        System.out.println("Number of real words found: " + realWordsFound);
     }
 
     /**
@@ -54,7 +57,10 @@ public class Puzzle {
         if (this.prefixes.containsKey(accumulatedString))
         {
             if (Utils.valid(accumulatedString, this.validWords))
-                System.out.println("\nWord found! '" + accumulatedString + "'\n");
+            {
+                realWordsFound++;
+                System.out.println("\nWord found -> '" + accumulatedString + "'\n");
+            }
             int[] nCell = { direction[0] + cell[0], direction[1] + cell[1] };
             if ((nCell[1] < this.puzzle[0].length) && (nCell[1] >= 0))
             {
