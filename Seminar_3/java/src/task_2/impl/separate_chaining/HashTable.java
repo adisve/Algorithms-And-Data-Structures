@@ -49,7 +49,7 @@ public class HashTable<K, V> implements IHashTable<K, V> {
                 HashNode<K, V> insertionNode = new HashNode<K, V>(key, value, hash, n);
                 this.entries.set(headIndex, insertionNode);
 
-                /* Ensure load factor is not exceeded (o.5f) */
+                /* Ensure load factor is not exceeded (0.5f) */
                 this.ensureLoadFactor();
                 return value;
         }
