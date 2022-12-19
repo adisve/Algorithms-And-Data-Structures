@@ -8,9 +8,9 @@
  * 
  * @retval minheap
  */
-minheap create()
+heap create()
 {
-	minheap heap = (minheap) malloc(sizeof(struct _minheap));
+	heap heap = (heap) malloc(sizeof(struct _heap));
 	if (heap == NULL) abort();
 
 	heap->max_size = 64;
@@ -29,11 +29,11 @@ minheap create()
  * @param n
  * @return minheap 
  */
-minheap heapify(const key_type* arr, int n)
+heap heapify(const key_type* arr, int n)
 {
 	assert(arr && n > 0);
 
-	minheap heap = (minheap) malloc(sizeof(struct _minheap));
+	heap heap = (heap) malloc(sizeof(struct _heap));
 	if (heap == NULL) abort();
 
 	heap->max_size = n;
@@ -55,7 +55,7 @@ minheap heapify(const key_type* arr, int n)
  * 
  * @param heap
  */
-void enlarge(minheap heap)
+void enlarge(heap heap)
 {
 	int new_max = 2 * heap->max_size;
 	key_type* new_arr = (key_type*) malloc(sizeof(key_type) * (new_max + 1));
@@ -76,7 +76,7 @@ void enlarge(minheap heap)
  * @param heap 
  * @param k 
  */
-void percolateup(minheap heap, int k)
+void percolateup(heap heap, int k)
 {
 	assert(heap && k >= 1 && k <= heap->size);
 
@@ -103,7 +103,7 @@ void percolateup(minheap heap, int k)
  * @param  k
  * @retval None
  */
-void percolatedown(minheap heap, int k)
+void percolatedown(heap heap, int k)
 {
 	assert(heap);
 	/* int child;
@@ -140,7 +140,7 @@ void percolatedown(minheap heap, int k)
  * @param  j
  * @retval None
  */
-void swap(minheap heap, int i, int j)
+void swap(heap heap, int i, int j)
 {
 	assert(heap && i >= 1 && i <= heap->size && j >= 1 && j <= heap->size);
 	key_type tmp = heap->arr[i];
@@ -156,7 +156,7 @@ void swap(minheap heap, int i, int j)
  * @param  key: array item type (int, char, etc..)
  * @retval None
  */
-void insert(minheap heap, key_type key)
+void insert(heap heap, key_type key)
 {
 	assert(heap);
 	if (heap->size == heap->max_size)
@@ -171,7 +171,7 @@ void insert(minheap heap, key_type key)
  * 
  * @param heap 
  */
-void levelorder(minheap heap)
+void levelorder(heap heap)
 {
 	for (int i = 1; i < heap->size+1; i++)
                 printf("%d ", heap->arr[i]);
@@ -184,7 +184,7 @@ void levelorder(minheap heap)
  * @param  i: 
  * @retval None
  */
-void preorder(minheap heap, int i)
+void preorder(heap heap, int i)
 {
 	if (i > 0 && i < heap->size)
 	{
@@ -205,7 +205,7 @@ void preorder(minheap heap, int i)
  * @param  i: 
  * @retval None
  */
-void postorder(minheap heap, int i)
+void postorder(heap heap, int i)
 {
 	if (i > 0 && i < heap->size)
 	{
@@ -227,7 +227,7 @@ void postorder(minheap heap, int i)
  * @param  i: 
  * @retval None
  */
-void inorder(minheap heap, int i)
+void inorder(heap heap, int i)
 {
 	if (i > 0 && i < heap->size)
 	{
@@ -248,13 +248,13 @@ void inorder(minheap heap, int i)
  * @param heap 
  * @return int 
  */
-int findmin(minheap heap)
+int findmin(heap heap)
 {
 	if (isempty(heap)) abort();
 	return heap->arr[1];
 }
 
-void destroy(minheap heap)
+void destroy(heap heap)
 {
 	assert(heap);
 	free(heap->arr);
@@ -267,7 +267,7 @@ void destroy(minheap heap)
  * @param  heap
  * @retval None
  */
-void deletemin(minheap heap)
+void deletemin(heap heap)
 {
 	if (isempty(heap)) abort();
 	swap(heap, 1, heap->size);
@@ -281,7 +281,7 @@ void deletemin(minheap heap)
  * @param heap 
  * @return int 
  */
-int size(minheap heap)
+int size(heap heap)
 {
 	assert(heap);
 	return heap->size;
@@ -294,7 +294,7 @@ int size(minheap heap)
  * @param heap 
  * @return int 
  */
-int isempty(minheap heap)
+int isempty(heap heap)
 {
 	assert(heap);
 	return heap->size <= 0;
@@ -305,7 +305,7 @@ int isempty(minheap heap)
  * 
  * @param heap 
  */
-void clear(minheap heap)
+void clear(heap heap)
 {
 	assert(heap);
 	heap->size = 0;

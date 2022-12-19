@@ -2,34 +2,35 @@
 #define HEAP_HEADER
 
 typedef int key_type;
-typedef struct _minheap* minheap;
+typedef struct _heap* heap;
 
-struct _minheap {
+struct _heap
+{
 	key_type *arr;
 	int max_size;
 	int size;
 };
 
-minheap create();
-minheap heapify(const key_type *arr, int n);
+heap create();
+heap heapify(const key_type *arr, int n);
 
-void destroy(minheap);
-int findmin(minheap);
-void insert(minheap, key_type);
-void deletemin(minheap);
+void destroy(heap);
+int findmin(heap);
+void insert(heap, key_type);
+void deletemin(heap);
 
-int isempty(minheap);
-int size(minheap);
-void clear(minheap);
-void swap(minheap heap, int i, int j);
+int isempty(heap);
+int size(heap);
+void clear(heap);
+void swap(heap heap, int i, int j);
 
-void enlarge(minheap heap);
-void percolatedown(minheap heap, int k);
-void percolateup(minheap heap, int k);
+void enlarge(heap heap);
+void percolatedown(heap heap, int k);
+void percolateup(heap heap, int k);
 
-void preorder(minheap heap, int i);
-void postorder(minheap heap, int i);
-void inorder(minheap heap, int i);
-void levelorder(minheap);
+void preorder(heap heap, int i);
+void postorder(heap heap, int i);
+void inorder(heap heap, int i);
+void levelorder(heap);
 
 #endif

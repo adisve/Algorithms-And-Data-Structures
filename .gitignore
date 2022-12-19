@@ -2,7 +2,16 @@
 
 # Java
 Seminar_2/java/bin
+Seminar_3/java/bin
 
 # C
+Seminar_1/binarysearch/bin
+Seminar_1/binarysearch/obj
+Seminar_1/insertionsort/bin
+Seminar_1/insertionsort/obj
+Seminar_1/quicksort/bin
+Seminar_1/quicksort/obj
 Seminar_2/c/bin
 Seminar_2/c/obj
+Seminar_3/c/task_1/obj
+Seminar_3/c/task_1/bin
