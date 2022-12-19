@@ -1,7 +1,7 @@
 package task_3;
 
-import task_3.utils.Puzzle;
-import task_3.utils.Utils;
+import task_3.puzzle.Puzzle;
+import task_3.puzzle.Utils;
 
 public class Main {
     public static void main(String[] args)
