@@ -85,7 +85,7 @@ public class Utils {
 			while (scanner.hasNextLine())
 			{
 				String word = scanner.nextLine();
-				if (word.length() > 3)
+				if (word.length() >= 3)
 					validWords.add(word);
 			}
 			scanner.close();
