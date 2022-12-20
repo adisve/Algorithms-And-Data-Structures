@@ -10,7 +10,7 @@
  */
 heap create()
 {
-	heap heap = (heap) malloc(sizeof(struct _heap));
+	heap heap = malloc(sizeof(struct _heap));
 	if (heap == NULL) abort();
 
 	heap->max_size = 64;
@@ -27,29 +27,35 @@ heap create()
  * 
  * @param arr
  * @param n
- * @return minheap 
+ * @return minheap
  */
-heap heapify(const key_type* arr, int n)
+heap heapify(heap h, const key_type *arr, int n)
 {
-	assert(arr && n > 0);
+	/* Out of memory */
+	if (h->arr == NULL)
+		abort();
+	h->size = n;
 
-	heap heap = (heap) malloc(sizeof(struct _heap));
-	if (heap == NULL) abort();
+	for(int k = 0; k < n; k++)
+		h->arr[k + 1] = arr[k];
 
-	heap->max_size = n;
-	heap->size = 0;
-	heap->arr = (key_type*) malloc(sizeof(key_type) * (heap->max_size + 1));
-
-	if (heap->arr == NULL) abort();
-
-	heap->size = n;
-	for (int k = 0; k < n; k++)
-		heap->arr[k+1] = arr[k];
-	for (int k = (heap->max_size+1) / 2; k > 0; k--)
-		percolatedown(heap, k);
-	return heap;		
+	for(int k = (h->max_size)/2; k > 0; k--)
+		percolatedown(h, k);
+	return h;
 }
 
+heap buildheap(const key_type *arr, int n)
+{
+	assert(arr && n > 0);
+	heap h = (heap) malloc(sizeof(struct _heap));
+
+	if (h == NULL)
+		abort();
+	h->max_size = n;
+	h->size = 0;
+	h->arr = (key_type*) malloc(sizeof(key_type)*(h->max_size+1));
+	return heapify(h, arr, n);
+}
 /**
  * @brief: Doubles size of minheap
  * 
@@ -89,7 +95,7 @@ void percolateup(heap heap, int k)
 	{
 		swap(heap, k / 2, k);
 		k /= 2;
-	}
+	} 
 }
 
 /**
@@ -100,36 +106,36 @@ void percolateup(heap heap, int k)
  * is restored.
  * 
  * @param  heap
- * @param  k
+ * @param  k: hole
  * @retval None
  */
-void percolatedown(heap heap, int k)
+void percolatedown(heap h, int k)
 {
-	assert(heap);
-	/* int child;
-	key_type tmp = heap->arr[k];
-	for (; k * 2 <= heap->size; k = child)
+	assert(h);
+	int j;
+	key_type tmp = h->arr[k];
+	for (j = k * 2; k * 2 <= h->size; k = j)
 	{
-		child = k * 2;
-		if (child != heap->size && heap->arr[child + 1] < heap->arr[child])
-			child++;
-		if (heap->arr[child] < tmp)
-			heap->arr[k] = heap->arr[child];
+		j = k * 2;
+		if (j != h->size && h->arr[j + 1] < h->arr[j])
+			j++;
+		if (h->arr[j] < tmp)
+			swap(h, k, j);
 		else
 			break;
 	}
-	heap->arr[k] = tmp; */
+	h->arr[k] = tmp;
 
 	// Should be written with more brevity like so:
-	while (2 * k <= heap->size)
+	/* while (2 * k <= heap->size)
 	{
-		int j = 2 * k;
+		j = 2 * k;
 		if (j < heap->size && heap->arr[j+1] < heap->arr[j]) j++;
 		if (heap->arr[k] <= heap->arr[j]) break;
 
 		swap(heap, k, j);
 		k = j;
-	}
+	} */
 }
 
 /**
@@ -192,10 +198,10 @@ void preorder(heap heap, int i)
 		printf("%d ", heap->arr[i]);
 
 		/* Left nodes */
-		preorder(heap, 2*i);
+		preorder(heap, 2 * i);
 
 		/* Right nodes */
-		preorder(heap, 2*i + 1);
+		preorder(heap, 2 * i + 1);
 	}
 }
 /**
@@ -210,10 +216,10 @@ void postorder(heap heap, int i)
 	if (i > 0 && i < heap->size)
 	{
 		/* Left nodes */
-		postorder(heap, 2*i);
+		postorder(heap, 2 * i);
 
 		/* Right nodes */
-		postorder(heap, 2*i + 1);
+		postorder(heap, 2 * i + 1);
 
 		/* Parent node */
 		printf("%d ", heap->arr[i]);
@@ -232,13 +238,13 @@ void inorder(heap heap, int i)
 	if (i > 0 && i < heap->size)
 	{
 		/* Left nodes */
-		inorder(heap, 2*i);
+		inorder(heap, 2 * i);
 
 		/* Parent node */
 		printf("%d ", heap->arr[i]);
 
 		/* Right nodes */
-		inorder(heap, 2*i + 1);
+		inorder(heap, 2 * i + 1);
 	}
 }
 

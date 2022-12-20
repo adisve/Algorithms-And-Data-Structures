@@ -22,8 +22,7 @@ void measure_algorithm_one(int *arr, int *COLLECTION_SIZE)
         {
                 begin = clock();
                 /* Create and fill heap */
-                
-                minheap heap_one = create();
+                heap heap_one = create();
                 for (int i = 0; i < 15; i++)
                         insert(heap_one, arr[i]);
                 end = clock();
@@ -52,7 +51,7 @@ void measure_algorithm_two(int *arr, int *COLLECTION_SIZE)
         {
                 begin = clock();
                 /* Create heap from [arr] */
-                heapify(arr, *COLLECTION_SIZE);
+                buildheap(arr, *COLLECTION_SIZE);
                 end = clock();
                 time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
                 avg_sum += time_spent;

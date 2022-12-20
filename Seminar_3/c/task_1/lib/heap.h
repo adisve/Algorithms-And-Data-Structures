@@ -12,7 +12,8 @@ struct _heap
 };
 
 heap create();
-heap heapify(const key_type *arr, int n);
+heap heapify(heap h, const key_type *arr, int n);
+heap buildheap(const key_type *arr, int n);
 
 void destroy(heap);
 int findmin(heap);

@@ -2,11 +2,11 @@
 #define TASK_ONE_HEADER
 
 typedef int key_type;
-typedef struct _minheap* minheap;
+typedef struct _heap* heap;
 
-void a(minheap heap);
-void b(minheap heap);
-void c(minheap heap_insert, minheap heap_heapified, int i);
+void a(heap heap);
+void b(heap heap);
+void c(heap heap_insert, heap heap_heapified, int i);
 void d();
 
 #endif

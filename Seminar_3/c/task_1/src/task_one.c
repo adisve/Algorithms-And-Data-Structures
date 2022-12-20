@@ -6,7 +6,7 @@
 
 #define MAX 100000
 
-void a(minheap heap)
+void a(heap heap)
 {
         printf("\n\n---- Task 1 ----\n\n");
         printf("a) ->  ");
@@ -14,14 +14,14 @@ void a(minheap heap)
         printf("\n");
 }
 
-void b(minheap heap)
+void b(heap heap)
 {
         printf("\nb) ->  ");
         levelorder(heap);
         printf("\n");
 }
 
-void c(minheap heap_one, minheap heap_two, int i)
+void c(heap heap_one, heap heap_two, int i)
 {
         printf("\n");
         printf("c) \n");

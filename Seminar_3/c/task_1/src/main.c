@@ -9,8 +9,8 @@ int main(void)
 {
         srand(time(NULL));
         int arr[15] = {10, 12, 1, 14, 6, 5, 8, 15, 3, 9, 7, 4, 11, 13, 2};
-        minheap heap_one = create();
-        minheap heap_two = heapify(arr, 15);
+        heap heap_one = create();
+        heap heap_two = buildheap(arr, 15);
         
         for (int i = 0; i < 15; i++)
                 insert(heap_one, arr[i]);
