@@ -9,6 +9,7 @@ public class SeparateChaining implements ITest
         private HashTable<Integer, Integer> hashTable = new HashTable<Integer, Integer>();
         private int lastInserted;
         private boolean isEmpty = true;
+        private int input[] = new int[] { 4371, 1323, 6173, 4199, 4344, 9679, 1989 };
 
         @Override
         public boolean test()
@@ -52,5 +53,11 @@ public class SeparateChaining implements ITest
                 return this.hashTable.remove(this.lastInserted);
         }
 
-
+        @Override
+        public void display() 
+        {
+                for (int i : input)
+                        this.hashTable.set(i, i);
+                this.hashTable.display();
+        }
 }

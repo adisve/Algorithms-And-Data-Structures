@@ -11,7 +11,6 @@ import task_2.models.HashEntry;
  */
 public class HashTable<K, V> implements IHashTable<K, V>
 {
-
 	private final int DEFAULT_CAPACITY = 8;
 	private final float DEFAULT_LOAD_FACTOR = 0.5f;
 	private int size;
@@ -22,6 +21,13 @@ public class HashTable<K, V> implements IHashTable<K, V>
 	public HashTable(int capacity)
 	{
 		this.capacity = capacity;
+		this.entries = new ArrayList<HashEntry<K, V>>(capacity);
+		this.clear();
+	}
+
+	public HashTable()
+	{
+		this.capacity = DEFAULT_CAPACITY;
 		this.entries = new ArrayList<HashEntry<K, V>>(DEFAULT_CAPACITY);
 		this.clear();
 	}
@@ -47,7 +53,7 @@ public class HashTable<K, V> implements IHashTable<K, V>
 	@Override
 	public int hashcode(K key)
 	{
-		return (7 - key.hashCode() % 7) % this.capacity;
+		return Math.abs((7 - (key.hashCode() % 7)) % this.capacity);
 	}
 
 	@Override
@@ -121,13 +127,14 @@ public class HashTable<K, V> implements IHashTable<K, V>
 	@Override
 	public void rehash(int capacity)
 	{
+		int oldCapacity = this.capacity;
+		this.capacity = capacity;
 		HashTable<K, V> temp = new HashTable<K, V>(capacity);
-		for (int i = 0; i < this.capacity; i++) {
+		for (int i = 0; i < oldCapacity; i++) {
 			if (this.entries.get(i) != null)
 				temp.set(this.entries.get(i).key, this.entries.get(i).value);
 		}
 		this.entries = temp.entries;
-		this.capacity = temp.capacity;
 	}
 
 	@Override
@@ -135,6 +142,13 @@ public class HashTable<K, V> implements IHashTable<K, V>
 	{
 		if ((1.0 * this.size) / this.capacity >= DEFAULT_LOAD_FACTOR)
 			rehash(2*this.capacity);
+	}
+
+	@Override
+	public void display()
+	{
+		for (int i = 0; i < this.capacity; i++)
+			System.out.print(" " + this.entries.get(i));
 	}
 
 	private void clear()

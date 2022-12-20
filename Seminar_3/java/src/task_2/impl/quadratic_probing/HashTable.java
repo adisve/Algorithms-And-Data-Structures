@@ -47,7 +47,7 @@ public class HashTable<K, V> implements IHashTable<K, V>
         @Override
         public int hashcode(K key)
         {
-            	return (7 - key.hashCode() % 7) % this.capacity;
+                return Math.abs((7 - (key.hashCode() % 7)) % this.capacity);
         }
     
         @Override
@@ -59,7 +59,7 @@ public class HashTable<K, V> implements IHashTable<K, V>
 	
 		/* Loop until a null entry is found, probing from hashcode(key) + i */
 		int j = 0, hash;
-		for (hash = hashcode(key); this.entries.get(hash) != null; hash = (j * j) % this.capacity, j++)
+		for (hash = hashcode(key); this.entries.get(hash) != null; hash = Math.abs((hash + (j * j)) % this.capacity), j++)
 		{
 			/** If the key is already in the table,
 			 * update the old value to new one
@@ -79,7 +79,7 @@ public class HashTable<K, V> implements IHashTable<K, V>
         public V get(K key)
         {
                 int j = 0;
-		for (int hash = hashcode(key); this.entries.get(hash) != null; hash = (j * j) % capacity, j++) 
+		for (int hash = hashcode(key); this.entries.get(hash) != null; hash = Math.abs((hash + (j * j)) % this.capacity), j++) 
 			if (this.entries.get(hash).key.equals(key))
 			        return this.entries.get(hash).value;
 		return null;
@@ -92,26 +92,26 @@ public class HashTable<K, V> implements IHashTable<K, V>
 		if (!containsKey(key)) return false;
 		
 		/* Loop table until correct hash entry is found */
-		int i = hashcode(key), j = 0;
-		while (!key.equals(this.entries.get(i).key))
+		int hash = hashcode(key), j = 0;
+		while (!key.equals(this.entries.get(hash).key))
 		{
-                        i = (i + j * j) % capacity;
+                        hash = Math.abs((hash + (j * j)) % this.capacity);
                         j++;
                 }
 		
 		/* Set hash entry to null */
-		this.entries.set(i, null);
+		this.entries.set(hash, null);
 	
 		/* Rehash */
-		i = (i + j * j) % capacity;
-		while (this.entries.get(i) != null)
+		hash = Math.abs((hash + (j * j)) % this.capacity);
+		while (this.entries.get(hash) != null)
 		{
-			HashEntry<K, V> tHashEntry = this.entries.get(i);
-			this.entries.set(i, null);
+			HashEntry<K, V> tHashEntry = this.entries.get(hash);
+			this.entries.set(hash, null);
 			this.size--;  
 			set(tHashEntry.key, tHashEntry.value);
                         j++;
-			i = (i + j * j) % capacity;
+			hash = Math.abs((hash + (j * j)) % this.capacity);
 		}
 		this.size--;
                 return true;     
@@ -125,14 +125,14 @@ public class HashTable<K, V> implements IHashTable<K, V>
         @Override
         public void rehash(int capacity)
         {
-		System.out.println("Rehashing to capacity: " + capacity);
+                int oldCapacity = this.capacity;
+                this.capacity = capacity;
 		HashTable<K, V> temp = new HashTable<K, V>(capacity);
-		for (int i = 0; i < this.capacity; i++) {
+		for (int i = 0; i < oldCapacity; i++) {
 			if (this.entries.get(i) != null)
 				temp.set(this.entries.get(i).key, this.entries.get(i).value);
 		}
 		this.entries = temp.entries;
-		this.capacity = temp.capacity;
         }
 
         @Override
@@ -147,5 +147,11 @@ public class HashTable<K, V> implements IHashTable<K, V>
                 /* Clear entries */
                 for (int i = 0; i < this.capacity; i++)
                         this.entries.add(null);
+        }
+
+        @Override
+        public void display() {
+                for (int i = 0; i < this.capacity; i++)
+                        System.out.print(" " + this.entries.get(i));
         }
 }

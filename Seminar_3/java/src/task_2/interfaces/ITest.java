@@ -14,4 +14,5 @@ public interface ITest
 
         boolean testRemove();
 
+        void display();
 }

@@ -9,4 +9,10 @@ public class HashEntry<K, V> {
                 this.key = key;
                 this.value = value;
         }
+
+        @Override
+        public String toString()
+        {
+                return this.value.toString();
+        }
 }

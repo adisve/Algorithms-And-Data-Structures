@@ -10,5 +10,6 @@ public interface IHashTable<K, V> {
         int hashcode(K key);
         void ensureLoadFactor();
         int size();
-        public boolean isEmpty();
+        boolean isEmpty();
+        void display();
 }

@@ -122,8 +122,9 @@ public class HashTable<K, V> implements IHashTable<K, V> {
         }
 
         @Override
-        public int hashcode(K key) {
-                return 7 - (key.hashCode() % 7);
+        public int hashcode(K key)
+        {
+                return Math.abs((7 - (key.hashCode() % 7)) % this.capacity);
         }
 
         @Override
@@ -141,18 +142,44 @@ public class HashTable<K, V> implements IHashTable<K, V> {
         }
 
         @Override
-        public boolean containsKey(K key) {
+        public boolean containsKey(K key)
+        {
                 return this.get(key) != null;
         }
 
         @Override
-        public int size() {
+        public int size()
+        {
                 return this.size;
         }
 
         @Override
-        public boolean isEmpty() {
+        public boolean isEmpty()
+        {
                 return this.size == 0;
+        }
+
+        @Override
+        public void display()
+        {
+                for (int i = 0; i < this.capacity; i++)
+                {
+                        System.out.print(i + ": ");
+                        if (this.entries.get(i) != null)
+                        {
+                                HashNode<K, V> head = this.entries.get(i);
+                                while (head != null)
+                                {
+                                        System.out.print(head.value + " -> ");
+                                        head = head.next;
+                                }
+                                System.out.print("null");
+                        }
+                        else {
+                                System.out.print("Empty");
+                        }
+                        System.out.println();
+                }
         }
 }
 
