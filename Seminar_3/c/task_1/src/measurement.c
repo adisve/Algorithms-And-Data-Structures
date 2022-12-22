@@ -15,7 +15,7 @@ void measure_algorithm_one(int *arr, int *COLLECTION_SIZE)
         double avg_sum = 0;
         double avg;
 
-        long *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
+        int *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
         memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(int));
 
         for (int i = 0; i < CYCLES; i++) 
@@ -23,12 +23,12 @@ void measure_algorithm_one(int *arr, int *COLLECTION_SIZE)
                 begin = clock();
                 /* Create and fill heap */
                 heap heap_one = create();
-                for (int i = 0; i < 15; i++)
-                        insert(heap_one, arr[i]);
+                for (int j = 0; j < 15; j++)
+                        insert(heap_one, arr[j]);
                 end = clock();
                 time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
                 avg_sum += time_spent;
-                memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(long));
+                memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
         }
         avg = avg_sum / CYCLES;
         free(reference_arr);
@@ -44,7 +44,7 @@ void measure_algorithm_two(int *arr, int *COLLECTION_SIZE)
         double avg_sum = 0;
         double avg;
 
-        long *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
+        int *reference_arr = malloc(sizeof(int) * *COLLECTION_SIZE);
         memcpy(reference_arr, arr, *COLLECTION_SIZE*sizeof(int));
 
         for (int i = 0; i < CYCLES; i++) 
@@ -55,7 +55,7 @@ void measure_algorithm_two(int *arr, int *COLLECTION_SIZE)
                 end = clock();
                 time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
                 avg_sum += time_spent;
-                memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(long));
+                memcpy(arr, reference_arr, *COLLECTION_SIZE*sizeof(int));
         }
         avg = avg_sum / CYCLES;
         free(reference_arr);

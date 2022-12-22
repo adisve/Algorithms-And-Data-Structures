@@ -1,98 +1,69 @@
 package task_4.models;
-import task_4.interfaces.Tree;
 
-public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>
-{
-        private Node<T> rootNode;
+// Java program to demonstrate
+// insert operation in binary
+// search tree
+public class BinarySearchTree {
 
-        @Override
-        public Tree<T> insert(T data)
-        {
-                this.rootNode = insert(data, this.rootNode);
-                return this;
-        }
+	/** Class containing left
+	and right child of current node
+	* and key value*/
+	class Node {
+		int key;
+		Node left, right;
 
-        @Override
-        public void delete(T data) { this.rootNode = delete(data, this.rootNode); }
+		public Node(int item)
+		{
+			key = item;
+			left = right = null;
+		}
+	}
 
-        @Override
-        public void traverse() { inOrderTraversal(this.rootNode); }
+	// Root of BST
+	public Node root;
 
-        @Override
-        public T getMaxElement()
-        {
-                if (this.isEmpty())
-                        return null;
-                return getMaxElement(this.rootNode);
-        }
+	// Constructor
+	public BinarySearchTree() { root = null; }
 
-        @Override
-        public T getMinElement()
-        {
-                if (this.isEmpty())
-                        return null;
-                return getMinElement(this.rootNode);
+	BinarySearchTree(int value) { root = new Node(value); }
 
-        }
+	// This method mainly calls insertRec()
+	public void insert(int key) { root = insertRec(root, key); }
 
-        @Override
-        public boolean isEmpty() { return this.rootNode == null; }
- 
-        private T getMinElement(Node<T> node)
-        {
-                if (node.getLeft() != null)
-                        return getMinElement(node.getLeft());
-                return node.getData();
-        }
+	/* A recursive function to
+	insert a new key in BST */
+	Node insertRec(Node root, int key)
+	{
 
+		/* If the tree is empty,
+		return a new node */
+		if (root == null) {
+			root = new Node(key);
+			return root;
+		}
 
-        private T getMaxElement(Node<T> node)
-        {
-                if (node.getRight() != null)
-                        return getMaxElement(node.getRight());
-                return node.getData();
-        }
+		/* Otherwise, recur down the tree */
+		else if (key < root.key)
+			root.left = insertRec(root.left, key);
+		else if (key > root.key)
+			root.right = insertRec(root.right, key);
 
-        private void inOrderTraversal(Node<T> node)
-        {
-                if (node != null)
-                {
-                        inOrderTraversal(node.getLeft());
-                        System.out.println(node);
-                        inOrderTraversal(node.getRight());
-                }
-        }
+		/* return the (unchanged) node pointer */
+		return root;
+	}
 
-        private Node<T> insert(T data, Node<T> node)
-        {
-                if (node == null)
-                        return new Node<T>(data);
-                /* Left subtree */
-                if (data.compareTo(node.getData()) < 0)
-                        node.setLeft(insert(data, node.getLeft()));
-                /* Right subtree */
-                else if (data.compareTo(node.getData()) > 0)
-                        node.setRight(insert(data, node.getRight()));
-                return node;
-        }
+	// This method mainly calls InorderRec()
+	void inorder() { inorderRec(root); }
 
-        private Node<T> delete(T data, Node<T> node)
-        {
-                if (node == null)
-                        return null;
-                /* Left subtree */
-                if (data.compareTo(node.getData()) < 0)
-                        node.setLeft(delete(data, node.getRight()));
-                /* Right subtree */
-                else if (data.compareTo(node.getData()) > 0)
-                        node.setRight(delete(data, node.getLeft()));
-                else
-                        if (node.getLeft() == null)
-                                return node.getRight();
-                        else if (node.getRight() == null)
-                                return node.getLeft();
-                        node.setData(getMaxElement(node.getLeft()));
-                        node.setLeft(delete(node.getData(), node.getLeft()));
-                return node;
-        }
+	// A utility function to
+	// do inorder traversal of BST
+	void inorderRec(Node root)
+	{
+		if (root != null) {
+			inorderRec(root.left);
+			System.out.println(root.key);
+			inorderRec(root.right);
+		}
+	}
 }
+// This code is contributed by Ankur Narain Verma

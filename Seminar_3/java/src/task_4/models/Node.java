@@ -1,52 +1,100 @@
 package task_4.models;
 
-class Node<T extends Comparable<T>> implements Comparable<Node<T>>
-{
-        private T data;
-        private int height = 1;
-        private Color color = Color.RED;
-        private Node<T> left;
-        private Node<T> right;
-        private Node<T> parent;
+/**
+ * Node for an AVL tree that holds an integer, data, and pointers to 
+ * its left and right children, leftChild and rightChild, respectively. 
+ * @author Isaac Mast
+ */
+public class Node {
 
+	//Declare instance variables
+	private int data;
+	private int balanceFactor;
+	private Node leftChild;
+	private Node rightChild;
 
-        public Node(T data) { this.data = data; }
+	public Node() {
+		this.data = 0;
+		this.balanceFactor = 0;
+		this.leftChild = null;
+		this.rightChild = null;
+	}
 
-        
-        public void setRight(Node<T> right){ this.right = right; }
+	/**
+	 * Constructs a leaf node that stores an integer, data
+	 * @param data the integer to set the data value to for the new node
+	 */
+	public Node(int data) {
+		this.data = data;
+		this.balanceFactor = 0;
+		this.leftChild = null;
+		this.rightChild = null;
+	}
 
-        public void setLeft(Node<T> left){ this.left = left; }
+	/**
+	 * Sets the data value of the current node
+	 * @param data - the new data value that the node contains
+	 */
+	public void setData(int data) {
+		this.data = data;
+	}
 
-        public void setData(T data) { this.data = data; }
+	/**
+	 * Gets the data value of the current node
+	 * @return the data value of the current node
+	 */
+	public int getData() {
+		return this.data;
+	}
 
-        public void setHeight(int height) { this.height = height; }
+	/**
+	 * Sets the data value of the left child of the current node
+	 * @param data the integer to set the data value to for the left 
+	 * child of the current node 
+	 */
+	public void setLeftChild(Node leftChild) {
+		this.leftChild = leftChild; 
+	}
 
-        public void setColor(Color color) { this.color = color; }
+	/**
+	 * Returns the left child node of the current node
+	 * @return leftChild the left child of the current node
+	 */
+	public Node getLeftChild() {
+		return this.leftChild;
+	}
 
-        public void setParent(Node<T> parent) { this.parent = parent; }
+	/**
+	 * Sets the data value of the right child of the current node
+	 * @param data the integer to set the data value to for the right 
+	 * child of the current node
+	 */
+	public void setRightChild(Node rightChild) {
+		this.rightChild = rightChild;
+	}
 
-        public Node<T> getLeft() { return this.left; }
+	/**
+	 * Returns the right child node of the current node
+	 * @return rightChild the right child of the current node
+	 */
+	public Node getRightChild() {
+		return this.rightChild;
+	}
 
-        public Node<T> getRight() { return this.right; }
-
-        public T getData() { return this.data; }
-
-        public int getHeight() { return this.height; }
-
-        public Color getColor() { return this.color; }
-
-        public Node<T> getParent() { return this.parent; }
-
-
-        public boolean isLeft() { return this == parent.getLeft(); }
-
-        public void flipColor() { this.setColor(color == Color.RED ? Color.BLACK : Color.RED); }
-
-
-
-        @Override
-        public int compareTo(Node<T> other) { return this.getData().compareTo(other.getData()); }
-
-        @Override
-        public String toString() { return this.data.toString(); }
+	/**
+	 * Determines the balance factor of the current node  
+	 * The balance factor is equal to the difference between the  
+	 * height of the left subtree and the right subtree of the current node.
+	 * @param node - the node to determine the balance factor of
+	 * @param height - the height of the node's subtrees 
+	 * @return balanceFactor the balance factor of the current node
+	 */
+	public int getBalanceFactor(Node node, int height) {
+		if (node == null) {
+			return height;
+		} else {
+			height++;
+			return getBalanceFactor(node.getLeftChild(), height) - getBalanceFactor(node.getRightChild(), height);
+		}
+	}
 }
