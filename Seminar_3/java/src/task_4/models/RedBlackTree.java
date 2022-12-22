@@ -1,5 +1,9 @@
 package task_4.models;
 
+/**
+ * SOURCE CODE FOR THIS FILE: https://github.com/Arsenalist/Red-Black-Tree-Java-Implementation
+ */
+
 // Inclusions
 
 import java.util.ArrayList;
