@@ -55,7 +55,6 @@ void d()
 {
         printf("\nd)\n");
         FILE *inputfile;
-        int *subset;
         int SUBSET_SIZE;
         int COLLECTION_SIZE = MAX;
         int *arr = malloc(sizeof(int) * COLLECTION_SIZE);
@@ -74,21 +73,23 @@ void d()
         for (int i = MAX; i > 0; i /= 10)
         {
                 printf("\nGoing in to allocate ..");
-                subset = malloc((i)*sizeof(int));
+                int *subset = malloc((i)*sizeof(int));
                 
                 for(int j = i; j < i; j++)
                         subset[j] = arr[j];
                 SUBSET_SIZE = i;
                 measure_algorithm_one(subset, &SUBSET_SIZE);
+                free(subset);
         }
 
         printf("\n\n---- Results for algorithm two ----\n\n");
         for (int i = MAX; i > 0; i /= 10)
         {
-                subset = malloc((i)*sizeof(int));
+                int *subset = malloc((i)*sizeof(int));
                 for(int j = i; j < i; j++)
                         subset[j] = arr[j];
                 SUBSET_SIZE = i;
                 measure_algorithm_two(subset, &SUBSET_SIZE);
+                free(subset);
         }     
 }
